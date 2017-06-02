@@ -1,4 +1,4 @@
-const jsonfile = require('jsonfile')
+const jsonfile = require('jsonfile');
 const Discord = require('discord.js');
 const cowsay_mod = require("cowsay");
 const fortunes = require('fortunes');
@@ -6,19 +6,19 @@ const figlet_mod = require('figlet');
 const client = new Discord.Client();
 const config = require('./config.json');
 
-var file = 'db.json'
+var file = 'db.json';
 var db = jsonfile.readFileSync(file);
 
 function saveFile(file) {
   jsonfile.writeFile(file, db, function (err) {
     if(err) console.error(err);
-  })
+  });
 }
 function help(msg) {
-  msg.channel.sendMessage("Commands:\n\n`!info @user`: gives you the set info on a user\n`!chinfo <info>`: changes your listing\n`!rminfo`: removes your listing\n\nOther commands:\n\n`!interject`\n`!norichard`\n`!gentoo`\n`!paste`\n`!cowsay <text>`\n`!fortune`\n`!step`\n`!figlet`"); 
+  msg.channel.sendMessage("Commands:\n\n`!info @user`: gives you the set info on a user\n`!chinfo <info>`: changes your listing\n`!rminfo`: removes your listing\n\nOther commands:\n\n`!interject`\n`!norichard`\n`!gentoo`\n`!paste`\n`!cowsay <text>`\n`!fortune`\n`!step`\n`!figlet`");
 }
 function info(msg) {
-  let userId
+  let userId;
   if(msg.content.substr(8,1) === '!') {
     userId = msg.content.substr(9,18);
   }
@@ -32,14 +32,14 @@ function info(msg) {
     msg.channel.sendMessage('```'+db.info[userId]+'```');
   }
   else {
-    msg.channel.sendMessage('No info found for <@' + userId + '>')
+    msg.channel.sendMessage('No info found for <@' + userId + '>');
   }
 }
 
 function chinfo(msg) {
   if(msg.content.substr(8) === '') {
-    delete db.info[msg.author.id]
-    msg.channel.sendMessage('Info removed.')
+    delete db.info[msg.author.id];
+    msg.channel.sendMessage('Info removed.');
   }
   else {
     db.info[msg.author.id] = msg.content.substr(8).replace(/[`]/g, '');
@@ -49,8 +49,8 @@ function chinfo(msg) {
 }
 
 function rminfo(msg) {
-  delete db.info[msg.author.id]
-  msg.channel.sendMessage('Info removed.')
+  delete db.info[msg.author.id];
+  msg.channel.sendMessage('Info removed.');
   saveFile(file);
 }
 
@@ -62,7 +62,7 @@ function slap(msg) {
     msg.channel.sendMessage('<@'+msg.author.id+'> slaps '+ msg.content.substr(6) +' around a bit with a large trout');
   }
   else {
-    msg.channel.sendMessage('!slap: Permission denied')
+    msg.channel.sendMessage('!slap: Permission denied');
   }
 }
 
@@ -84,7 +84,7 @@ function gentoo(msg) {
   msg.delete();
 }
 function paste(msg) {
-  msg.channel.sendMessage("Please paste your log/message here: https://paste.fedoraproject.org/")
+  msg.channel.sendMessage("Please paste your log/message here: https://paste.fedoraproject.org/");
 }
 function cowsay(msg) {
   msg.channel.sendMessage("```\n"+ cowsay_mod.say({text: msg.content.substr(8)}) +"\n```");
@@ -105,7 +105,7 @@ function step(msg) {
     msg.channel.sendMessage('<@'+msg.author.id+'> steps on '+ msg.content.substr(6));
   }
   else {
-    msg.channel.sendMessage('!step: Permission denied')
+    msg.channel.sendMessage('!step: Permission denied');
   }
 }
 function figlet(msg) {
@@ -113,19 +113,19 @@ function figlet(msg) {
 }
 function sudo(msg) {
   if(!msg.member.roles.exists('name', 'sudoers')) {
-    msg.channel.sendMessage('<@'+msg.author.id+'> is not in the sudoers file. This incident will be reported.')
+    msg.channel.sendMessage('<@'+msg.author.id+'> is not in the sudoers file. This incident will be reported.');
     return;
   }
   if(msg.content.substr(8, 4) === 'info') {
-    let userId
-    let message
+    let userId;
+    let message;
     if(msg.content.substr(8,1) === '!') {
       userId = msg.content.substr(16,18);
-      message = msg.content.substr(36)
+      message = msg.content.substr(36);
     }
     else {
       userId = msg.content.substr(15,18);
-      message = msg.content.substr(35)
+      message = msg.content.substr(35);
     }
     if(msg.content.substr(6, 6) === 'chinfo') {
       db.info[userId] = message;
@@ -148,7 +148,7 @@ client.on('ready', () => {
 
 client.on('message', msg => {
   if(msg.author === client.user) return;
-       if(msg.content.substr(0,  5) === '!help')          help(msg); 
+       if(msg.content.substr(0,  5) === '!help')          help(msg);
   else if(msg.content.substr(0,  5) === '!info')          info(msg);
   else if(msg.content.substr(0,  7) === '!chinfo')        chinfo(msg);
   else if(msg.content.substr(0,  7) === '!rminfo')        rminfo(msg);
@@ -165,7 +165,7 @@ client.on('message', msg => {
 });
 
 client.on('guildMemberAdd', member => {
-  client.channels.get('31589004683195188').sendMessage('Joined: <@' + member.id + '>')
+  client.channels.get('31589004683195188').sendMessage('Joined: <@' + member.id + '>');
 });
 
-client.login(config.token).then(function() {client.user.setGame("I can't remove this")});
+client.login(config.token).then(function() {client.user.setGame("I can't remove this");});
