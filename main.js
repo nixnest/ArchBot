@@ -62,7 +62,7 @@ function slap(msg) {
     msg.channel.sendMessage('<@'+msg.author.id+'> slaps '+ msg.content.substr(6) +' around a bit with a large trout');
   }
   else {
-    msg.channel.sendMessage('!slap: Permission denied');
+    msg.channel.sendMessage(config.prefix + 'slap: Permission denied');
   }
 }
 
@@ -105,7 +105,7 @@ function step(msg) {
     msg.channel.sendMessage('<@'+msg.author.id+'> steps on '+ msg.content.substr(6));
   }
   else {
-    msg.channel.sendMessage('!step: Permission denied');
+    msg.channel.sendMessage(config.prefix + 'step: Permission denied');
   }
 }
 function figlet(msg) {
@@ -148,20 +148,20 @@ client.on('ready', () => {
 
 client.on('message', msg => {
   if(msg.author === client.user) return;
-       if(msg.content.substr(0,  5) === '!help')          help(msg);
-  else if(msg.content.substr(0,  5) === '!info')          info(msg);
-  else if(msg.content.substr(0,  7) === '!chinfo')        chinfo(msg);
-  else if(msg.content.substr(0,  7) === '!rminfo')        rminfo(msg);
-  else if(msg.content.substr(0,  5) === '!slap')          slap(msg);
-  else if(msg.content.substr(0, 10) === '!interject')     interject(msg);
-  else if(msg.content.substr(0, 10) === '!norichard')     norichard(msg);
-  else if(msg.content.substr(0,  7) === '!gentoo')        gentoo(msg);
-  else if(msg.content.substr(0,  6) === '!paste')         paste(msg);
-  else if(msg.content.substr(0,  7) === '!cowsay')        cowsay(msg);
-  else if(msg.content.substr(0,  8) === '!fortune')       fortune(msg);
-  else if(msg.content.substr(0,  5) === '!step')          step(msg);
-  else if(msg.content.substr(0,  7) === '!figlet')        figlet(msg);
-  else if(msg.content.substr(0,  5) === '!sudo')          sudo(msg);
+       if(msg.content.substr(0,  5) === config.prefix + 'help')          help(msg);
+  else if(msg.content.substr(0,  5) === config.prefix + 'info')          info(msg);
+  else if(msg.content.substr(0,  7) === config.prefix + 'chinfo')        chinfo(msg);
+  else if(msg.content.substr(0,  7) === config.prefix + 'rminfo')        rminfo(msg);
+  else if(msg.content.substr(0,  5) === config.prefix + 'slap')          slap(msg);
+  else if(msg.content.substr(0, 10) === config.prefix + 'interject')     interject(msg);
+  else if(msg.content.substr(0, 10) === config.prefix + 'norichard')     norichard(msg);
+  else if(msg.content.substr(0,  7) === config.prefix + 'gentoo')        gentoo(msg);
+  else if(msg.content.substr(0,  6) === config.prefix + 'paste')         paste(msg);
+  else if(msg.content.substr(0,  7) === config.prefix + 'cowsay')        cowsay(msg);
+  else if(msg.content.substr(0,  8) === config.prefix + 'fortune')       fortune(msg);
+  else if(msg.content.substr(0,  5) === config.prefix + 'step')          step(msg);
+  else if(msg.content.substr(0,  7) === config.prefix + 'figlet')        figlet(msg);
+  else if(msg.content.substr(0,  5) === config.prefix + 'sudo')          sudo(msg);
 });
 
 client.on('guildMemberAdd', member => {
