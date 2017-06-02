@@ -12,4 +12,5 @@ Move `db_sample.json` to `db.json` and `config_sample.json` to `config.json`
 In config.json, add your Discord bot token.
 ```sh
 $ npm install
-$ node main.js```
+$ node main.js
+```
