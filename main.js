@@ -113,7 +113,7 @@ function figlet(msg) {
 }
 function sudo(msg) {
   if(!msg.member.roles.exists('name', 'sudoers')) {
-    msg.channel.sendMessage('<@'+msg.author.id+'> is not in the sudoers file. This incident will be reported.');
+    msg.channel.send('<@'+msg.author.id+'> is not in the sudoers file. This incident will be reported.');
     client.channels.get(config.sudoLogChannel).send('<@'+msg.author.id+'> is on santa\'s naughty list and will receive coal for Christmas.');
     return;
   }
