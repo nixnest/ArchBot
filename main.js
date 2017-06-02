@@ -165,7 +165,9 @@ client.on('message', msg => {
 });
 
 client.on('guildMemberAdd', member => {
-  client.channels.get('31589004683195188').sendMessage('Joined: <@' + member.id + '>');
+  client.channels.get(config.logChannel).sendMessage('Joined: <@' + member.id + '>');
 });
 
-client.login(config.token).then(function() {client.user.setGame("I can't remove this");});
+client.login(config.token).then(function() {
+  client.user.setGame("I can't remove this text");
+});
