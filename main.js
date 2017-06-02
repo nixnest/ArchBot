@@ -112,7 +112,7 @@ function figlet(msg) {
   msg.channel.sendMessage("```\n"+ figlet_mod.textSync(msg.content.substr(8)) +"\n```");
 }
 function sudo(msg) {
-  if(!msg.member.roles.exists('name', 'sudoers')) {
+  if(!msg.member.roles.exists('id', config.sudoersRole)) {
     msg.channel.sendMessage('<@'+msg.author.id+'> is not in the sudoers file. This incident will be reported.');
     return;
   }
