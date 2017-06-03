@@ -46,7 +46,7 @@ function chinfo(msg) {
     db.info[msg.author.id] = msg.content.substr(8).replace(/[`]/g, '');
     msg.channel.send('Info changed to: ```' + db.info[msg.author.id] + '```');
   }
-  saveDB()
+  saveDB();
 }
 
 function rminfo(msg) {
