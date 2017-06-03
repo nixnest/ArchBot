@@ -137,5 +137,6 @@ client.on('guildMemberAdd', member => {
 });
 
 client.login(config.token).then(function() {
-  client.user.setGame('I can\'t remove this text');
+  client.user.setGame(''); //if you want the bot not to have a "Playing..." message, you have to
+                           //pass an empty parameter and wait for the bot to leave the channel before restarting
 });
