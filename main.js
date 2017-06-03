@@ -143,6 +143,10 @@ function sudo(msg) {
   }
 }
 
+function checkMessage(msg) { 
+  return msg.content.test(/@everyone|@here/g, "");
+}
+
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.username}!`);
 });
