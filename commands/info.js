@@ -2,7 +2,7 @@ const jsonfile = require('jsonfile');
 const utils = require('../lib/utils.js');
 
 //const db = require('../db.json')
-var db = jsonfile.readFileSync('/home/tdeo/ArchBot/db.json');
+var db = jsonfile.readFileSync('./db.json');
 
 exports.run = function(msg, args, usertype) {
   let userId;
@@ -14,7 +14,7 @@ exports.run = function(msg, args, usertype) {
     userId = msg.content.substr(2, 18);
   }
   try { 
-    msg.channel.send('```' + db.info[userId] + '```');
+    msg.channel.send('```' + db[userId] + '```');
   }
   catch(e) {
     msg.channel.send(e+'No info found for <@' + userId + '>');
