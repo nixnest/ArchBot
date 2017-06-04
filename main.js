@@ -101,21 +101,26 @@ client.on('message', msg => {
   let errMesg = 'archbot: command not found: ' + command;
 
   if (typeof(pasta[command]) !== "undefined") {
+    let regPasta=pasta[command];
     if (typeof(pasta[command]) === "string") {
-      let regPasta=pasta[command];
       if (args.length !== 0) {
 	for (x in args) {
 	  regPasta = regPasta.replace(new RegExp(args[x].split('/')[0], 'g'), args[x].split('/')[1]);
 	}
-	msg.channel.send(regPasta);
       }
+    msg.channel.send(regPasta);
     } else if (typeof(pasta[command]) === "object") {
-      pasta[command].forEach(function(part) {
-        msg.channel.send(part);
+      regPasta.forEach(function(part) {
+        if (args.length !== 0) {
+          for (x in args) {
+            part = part.replace(new RegExp(args[x].split('/')[0], 'g'), args[x].split('/')[1]);
+  	  }
+	}
+      msg.channel.send(part);
       });
-    }
-    return;
+    }	
   }
+    return;
 
   if (command === "sudo") {
     if (!msg.member.roles.exists('id', config.sudoersRole)) {
