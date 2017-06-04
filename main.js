@@ -5,9 +5,10 @@ const fortunes = require('fortunes');
 const figlet_mod = require('figlet');
 
 const config = require('./config.json');
-const pasta = require('./pasta.json')
+const pasta = require('./pasta.json');
 
 const client = new Discord.Client();
+
 
 var db = jsonfile.readFileSync('db.json');
 
@@ -45,7 +46,7 @@ function chinfo(msg) {
     db.info[msg.author.id] = msg.content.substr(8).replace(/[`]/g, '');
     msg.channel.send('Info changed to: ```' + db.info[msg.author.id] + '```');
   }
-  saveDB()
+  saveDB();
 }
 
 function rminfo(msg) {
@@ -97,6 +98,8 @@ client.on('message', msg => {
   let args = msg.content.split(" ").slice(1);
   let usertype = "regular";
 
+  let errMesg = 'archbot: command not found: ' + command;
+
   if (typeof(pasta[command]) !== "undefined") {
     if (typeof(pasta[command]) === "string") {
       let regPasta=pasta[command];
@@ -116,13 +119,14 @@ client.on('message', msg => {
 
   if (command === "sudo") {
     if (!msg.member.roles.exists('id', config.sudoersRole)) {
-      msg.channel.send('<@' + msg.author.id + '> is not in the sudoers file. This incident will be reported.')
-      client.channels.get(config.sudoLogChannel).send('<@' + msg.author.id + '> is getting coal for Christmas.')
+      msg.channel.send('<@' + msg.author.id + '> is not in the sudoers file. This incident will be reported.');
+      client.channels.get(config.sudoLogChannel).send('<@' + msg.author.id + '> is getting coal for Christmas.');
       return;
     } else {
       usertype = "sudoer";
       command = args[0];
       args = args.slice(1);
+      errMesg = 'archbot: sudo: command not found: ' + command;
     }
   }
 
@@ -130,7 +134,7 @@ client.on('message', msg => {
     let cmdFile = require("./commands/" + command);
     cmdFile.run(msg, args, usertype);
   } catch (e) {
-    msg.channel.send('archbot: command not found: ' + command)
+      msg.channel.send(errMesg);
   }
 });
 
@@ -139,5 +143,6 @@ client.on('guildMemberAdd', member => {
 });
 
 client.login(config.token).then(function() {
-  client.user.setGame('I can\'t remove this text');
+  client.user.setGame(''); //if you want the bot not to have a "Playing..." message, you have to
+                           //pass an empty parameter and wait for the bot to leave the channel before restarting
 });
