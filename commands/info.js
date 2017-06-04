@@ -1,8 +1,8 @@
 const jsonfile = require('jsonfile');
 const utils = require('../lib/utils.js');
 
+//const db = require('../db.json')
 var db = jsonfile.readFileSync('/home/tdeo/ArchBot/db.json');
-
 
 exports.run = function(msg, args, usertype) {
   let userId;
