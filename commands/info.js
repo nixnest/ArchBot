@@ -1,7 +1,6 @@
 const jsonfile = require('jsonfile');
 const utils = require('../lib/utils.js');
 
-//const db = require('../db.json')
 var db = jsonfile.readFileSync('./db.json');
 
 exports.run = function(msg, args, usertype) {
@@ -9,14 +8,13 @@ exports.run = function(msg, args, usertype) {
   if (typeof(args[0]) === 'undefined') {
     userId = msg.author.id;
   } else if (args[0].substr(2, 1) === '!') {
-    userId = msg.content.substr(3, 18);
+    userId = args[0].substr(3, 18);
   } else {
-    userId = msg.content.substr(2, 18);
+    userId = args[0].substr(2, 18);
   }
-  try { 
+  if(typeof(db[userId]) === 'string') { 
     msg.channel.send('```' + db[userId] + '```');
-  }
-  catch(e) {
-    msg.channel.send(e+'No info found for <@' + userId + '>');
+  } else {
+    msg.channel.send('No info found for <@' + userId + '>');
   }
 }
