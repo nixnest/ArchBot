@@ -99,9 +99,6 @@ client.on('message', msg => {
 
   if (typeof(pasta[command]) !== "undefined") {
     if (typeof(pasta[command]) === "string") {
-<<<<<<< Updated upstream
-      msg.channel.send(pasta[command])
-=======
       let regPasta=pasta[command];
       if (args.length !== 0) {
 	for (x in args) {
@@ -109,7 +106,6 @@ client.on('message', msg => {
 	}
 	msg.channel.send(regPasta);
       }
->>>>>>> Stashed changes
     } else if (typeof(pasta[command]) === "object") {
       pasta[command].forEach(function(part) {
         msg.channel.send(part);
