@@ -1,8 +1,9 @@
-const jsonfile = require('jsonfile');
 const Discord = require('discord.js');
 const cowsay_mod = require('cowsay');
 const fortunes = require('fortunes');
 const figlet_mod = require('figlet');
+
+const utils = require('./lib/utils.js');
 
 const config = require('./config.json');
 const pasta = require('./pasta.json');
@@ -10,7 +11,7 @@ const pasta = require('./pasta.json');
 const client = new Discord.Client();
 
 
-var db = jsonfile.readFileSync('db.json');
+//var db = jsonfile.readFileSync('db.json');
 
 function saveFile(file, content) {
   jsonfile.writeFile(file, content, function(err) {
@@ -85,7 +86,6 @@ function figlet(msg) {
 }
 
 
-
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.username}!`);
 });
@@ -101,26 +101,26 @@ client.on('message', msg => {
   let errMesg = 'archbot: command not found: ' + command;
 
   if (typeof(pasta[command]) !== "undefined") {
-    let regPasta=pasta[command];
+    let regPasta = pasta[command];
     if (typeof(pasta[command]) === "string") {
       if (args.length !== 0) {
-	for (x in args) {
-	  regPasta = regPasta.replace(new RegExp(args[x].split('/')[0], 'g'), args[x].split('/')[1]);
-	}
+        for (x in args) {
+          regPasta = regPasta.replace(new RegExp(args[x].split('/')[0], 'g'), args[x].split('/')[1]);
+        }
       }
-    msg.channel.send(regPasta);
+      msg.channel.send(regPasta);
     } else if (typeof(pasta[command]) === "object") {
       regPasta.forEach(function(part) {
         if (args.length !== 0) {
           for (x in args) {
             part = part.replace(new RegExp(args[x].split('/')[0], 'g'), args[x].split('/')[1]);
-  	  }
-	}
-      msg.channel.send(part);
+          }
+        }
+        msg.channel.send(part);
       });
-    }	
-  }
+    }
     return;
+  }
 
   if (command === "sudo") {
     if (!msg.member.roles.exists('id', config.sudoersRole)) {
@@ -139,7 +139,8 @@ client.on('message', msg => {
     let cmdFile = require("./commands/" + command);
     cmdFile.run(msg, args, usertype);
   } catch (e) {
-      msg.channel.send(errMesg);
+    msg.channel.send(errMesg);
+    console.log(e)
   }
 });
 
@@ -149,5 +150,5 @@ client.on('guildMemberAdd', member => {
 
 client.login(config.token).then(function() {
   client.user.setGame(''); //if you want the bot not to have a "Playing..." message, you have to
-                           //pass an empty parameter and wait for the bot to leave the channel before restarting
+  //pass an empty parameter and wait for the bot to leave the channel before restarting
 });
