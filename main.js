@@ -14,7 +14,7 @@ client.on('ready', () => {
 client.on('message', msg => {
   if (msg.author === client.user) return;
   if (!msg.content.startsWith(config.prefix)) return;
-
+  
   let command = msg.content.substr(config.prefix.length).split(' ')[0];
   let args = msg.content.split(' ').slice(1);
   let usertype = 'regular';
@@ -23,20 +23,10 @@ client.on('message', msg => {
 
   if (typeof (pasta[command]) !== 'undefined') {
     let regPasta = pasta[command];
-    if (typeof (pasta[command]) === 'string') {
-      if (args.length !== 0) {
-        for (x in args) {
-          regPasta = regPasta.replace(new RegExp(args[x].split('/')[0], 'g'), args[x].split('/')[1]);
-        }
-      }
-      msg.channel.send(regPasta);
-    } else if (typeof (pasta[command]) === 'object') {
+    if (Object.prototype.toString.call(pasta[command]) === '[object Object]') {
+      msg.channel.send(pasta[command]);
+    } else if (Object.prototype.toString.call(pasta[command]) === '[object Array]') {
       regPasta.forEach(function (part) {
-        if (args.length !== 0) {
-          for (x in args) {
-            part = part.replace(new RegExp(args[x].split('/')[0], 'g'), args[x].split('/')[1]);
-          }
-        }
         msg.channel.send(part);
       });
     }
@@ -71,6 +61,6 @@ client.on('guildMemberAdd', member => {
 
 client.login(config.token).then(function () {
   client.user.setGame('');
-    /* if you want the bot not to have a "Playing..." message, you have to
-     * pass an empty parameter and wait for the bot to leave the channel before restarting */
+  /* if you want the bot not to have a "Playing..." message, you have to
+   * pass an empty parameter and wait for the bot to leave the channel before restarting */
 });
