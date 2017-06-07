@@ -14,7 +14,7 @@ client.on('ready', () => {
 client.on('message', msg => {
   if (msg.author === client.user) return;
   if (!msg.content.startsWith(config.prefix)) return;
-  
+
   let command = msg.content.substr(config.prefix.length).split(' ')[0];
   let args = msg.content.split(' ').slice(1);
   let usertype = 'regular';
@@ -24,10 +24,28 @@ client.on('message', msg => {
   if (typeof (pasta[command]) !== 'undefined') {
     let regPasta = pasta[command];
     if (Object.prototype.toString.call(pasta[command]) === '[object Object]') {
-      msg.channel.send(pasta[command]);
+      if (args.length !== 0) {
+        let txtPasta = regPasta.embed.description;
+        for (let x in args) {
+          let find = args[x].split('/')[0];
+          let replace = args[x].split('/')[1];
+          let regex = new RegExp(find, 'gi');
+          txtPasta = txtPasta.replace(regex, replace);
+        }
+        regPasta.embed.description = txtPasta;
+      }
+      msg.channel.send(regPasta);
     } else if (Object.prototype.toString.call(pasta[command]) === '[object Array]') {
-      regPasta.forEach(function (part) {
-        msg.channel.send(part);
+      regPasta.forEach(function (embPasta) {
+        if (args.length !== 0) {
+          let txtPasta = embPasta.embed.description;
+          for (let x in args) {
+            let regex = new RegExp(args[x].split('/')[0], 'gi');
+            txtPasta = txtPasta.replace(regex, args[x].split('/')[1]);
+            embPasta.embed.description = txtPasta;
+          }
+        }
+        msg.channel.send(embPasta);
       });
     }
     return;
