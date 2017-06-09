@@ -4,11 +4,13 @@ function sedStr (str, arg) {
     arg_ = arg_.split ('/');
     if (typeof (arg_[1]) == 'undefined' ||
         (arg_[0].length < 1 || arg_[1].length < 1)) {
-        console.log ("We'll skip that one: [Existent: ", arg_[0],
-            "\tReplacement: ", arg_[1], "]\n");
     } else {
-        re = new RegExp (arg_[0], "gi");
-        str_ = str_.replace (re, arg_[1]);
+        try{
+            re = new RegExp (arg_[0], "gi");
+            str_ = str_replace (re, arg_[1]);
+        } catch (e) {
+            // Hello, smile
+        }
     }
 
     return str_;

@@ -32,7 +32,6 @@ client.on('message', msg => {
                 msg.channel.send(clean);
             });
         }
-        console.log (pasta[command]);
         return;
     }
 
