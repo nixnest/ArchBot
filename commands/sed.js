@@ -7,7 +7,7 @@ function sedStr (str, arg) {
   } else {
     try{
       re = new RegExp (arg_[0], "gi");
-      str_ = str_replace (re, arg_[1]);
+      str_ = str_.replace (re, arg_[1]);
     } catch (e) {
       // Hello, smile
     }
