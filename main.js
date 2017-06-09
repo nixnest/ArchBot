@@ -1,8 +1,6 @@
 const Discord = require('discord.js');
 
-const utils = require('./lib/utils.js');
-
-const config = require('./config.json');
+const config = require('./config.priv.json');
 const pasta = require('./pasta.json');
 
 const client = new Discord.Client();
@@ -19,33 +17,19 @@ client.on('message', msg => {
   let args = msg.content.split(' ').slice(1);
   let usertype = 'regular';
 
+  console.log (`command: ${command}\nargs: ${args}\n`);
   let errMesg = 'archbot: command not found: ' + command;
 
   if (typeof (pasta[command]) !== 'undefined') {
-    let regPasta = pasta[command];
-    if (Object.prototype.toString.call(pasta[command]) === '[object Object]') {
-      if (args.length !== 0) {
-        let txtPasta = regPasta.embed.description;
-        for (let x in args) {
-          let find = args[x].split('/')[0];
-          let replace = args[x].split('/')[1];
-          let regex = new RegExp(find, 'gi');
-          txtPasta = txtPasta.replace(regex, replace);
-        }
-        regPasta.embed.description = txtPasta;
-      }
-      msg.channel.send(regPasta);
-    } else if (Object.prototype.toString.call(pasta[command]) === '[object Array]') {
-      regPasta.forEach(function (embPasta) {
-        if (args.length !== 0) {
-          let txtPasta = embPasta.embed.description;
-          for (let x in args) {
-            let regex = new RegExp(args[x].split('/')[0], 'gi');
-            txtPasta = txtPasta.replace(regex, args[x].split('/')[1]);
-            embPasta.embed.description = txtPasta;
-          }
-        }
-        msg.channel.send(embPasta);
+    let regPasta = JSON.parse (JSON.stringify (pasta[command])); //fuck JS! 
+    let SED = require ('./commands/sed.js');
+    if (Object.prototype.toString.call(regPasta) === '[object Object]') {
+      let clean = SED.run (regPasta, args);
+      msg.channel.send(clean);
+    } else if (Object.prototype.toString.call(regPasta) === '[object Array]') {
+      regPasta.forEach(function (part) {
+        let clean = SED.run (part, args);
+        msg.channel.send(clean);
       });
     }
     return;

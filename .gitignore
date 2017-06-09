@@ -2,3 +2,9 @@ db.json
 config.json
 node_modules
 *.swp
+
+# Private files
+*.priv.*
+
+# Vim files
+*~
