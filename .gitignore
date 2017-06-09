@@ -4,4 +4,7 @@ node_modules
 *.swp
 
 # Private files
-*.priv
+*.priv.*
+
+# Vim files
+*~

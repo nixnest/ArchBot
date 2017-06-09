@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 
 const utils = require('./lib/utils.js');
 
-const config = require('./config.json');
+const config = require('./config.json.priv');
 const pasta = require('./pasta.json');
 
 const client = new Discord.Client();
