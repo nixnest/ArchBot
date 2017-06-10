@@ -49,5 +49,10 @@
             },
             "description": "Please paste your log/message here: https://paste.fedoraproject.org/"
         }
+    },
+    "systemd": { 
+      "embed": {
+        "description": "First off, systemd is not an init system, it has an init system as part of the systemd suite. systemd is a project to build a standardised lowlevel userland for Linux. The project is pretty comprehensive and it delivers a lot of functionality under one umbrella. It does away with a lot of older, often undermaintained software packages, which were traditionally used to assemble a low level userland.\n\nWhich is where the contention comes from, as a system suite systemd is restrictive for Unix virtuosi who are used to tailor a system with wit, ingenuity, a lick and a prayer and a couple dozen of unrelated packages. systemd makes such knowledge useless.\n\nThe faction that thinks that systemd is Linux's Hiroshima, finds all the added functionality bloat, unnecessary and dangerous, as it is all under development in one project.\n\nAll the systemd jokes stem from the comprehensiveness as a low level system suite. People against it love to joke that one day systemd will write its own kernel.\n\nThere is a lot of FUD and hate going around. Some arguments do have merit, a lot of eggs in one basket is certainly true, but as with all things in life, it depends which tradeoff you prefer. Do you want a suite of well designed software, working closely together, so that system management is streamlined or do you want the complete freedom to tailor your own low level system with a lot of time tested, interchangeable components.\n\nI have no desire to be a low level system designer, so I prefer systemd. I don't hate traditional init systems though. If a Linux system has one and I need to work with it, I'm still happy it boots and starts the necessary services."
+      }
     }
 }
