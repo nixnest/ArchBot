@@ -6,5 +6,8 @@ node_modules
 # Private files
 *.priv.*
 
+# Yarn lock
+yarn.lock
+
 # Vim files
 *~
