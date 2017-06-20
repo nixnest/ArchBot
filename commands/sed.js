@@ -41,10 +41,13 @@ function commandsFromString (args) {
   return commands;
 }
 
-exports.run = function (str, args) {
+exports.run = function (obj, args) {
   try {
     if (args instanceof Array) args = args.join(' ');
-    return commandsFromString(args).reduce((result, func) => func(result), str);
+    let str = obj.embed.description;
+    str = commandsFromString(args).reduce((result, func) => func(result), str);
+    obj.embed.description = str;
+    return obj;
   } catch (err) {
     return `Error: ${err.message}`;
   }
