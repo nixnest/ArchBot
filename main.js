@@ -20,6 +20,19 @@ client.on('message', msg => {
   console.log (`command: ${command}\nargs: ${args}\n`);
   let errMesg = 'archbot: command not found: ' + command;
 
+  if (command === 'sudo') {
+    if (!msg.member.roles.exists('id', config.sudoersRole)) {
+      msg.channel.send('<@' + msg.author.id + '> is not in the sudoers file. This incident will be reported.');
+      client.channels.get(config.sudoLogChannel).send('<@' + msg.author.id + '> is getting coal for Christmas.');
+      return;
+    } else {
+      usertype = 'sudoer';
+      command = args[0];
+      args = args.slice(1);
+      errMesg = 'archbot: sudo: command not found: ' + command;
+    }
+  }
+
   if (typeof (pasta[command]) !== 'undefined') {
     let regPasta = JSON.parse (JSON.stringify (pasta[command])); //fuck JS! 
     let SED = require ('./commands/sed.js');
@@ -33,19 +46,6 @@ client.on('message', msg => {
       });
     }
     return;
-  }
-
-  if (command === 'sudo') {
-    if (!msg.member.roles.exists('id', config.sudoersRole)) {
-      msg.channel.send('<@' + msg.author.id + '> is not in the sudoers file. This incident will be reported.');
-      client.channels.get(config.sudoLogChannel).send('<@' + msg.author.id + '> is getting coal for Christmas.');
-      return;
-    } else {
-      usertype = 'sudoer';
-      command = args[0];
-      args = args.slice(1);
-      errMesg = 'archbot: sudo: command not found: ' + command;
-    }
   }
 
   try {
