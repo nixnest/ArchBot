@@ -116,5 +116,10 @@ describe('sed', function () {
       run(input, '(.)a/$1i');
       expect(input).to.have.deep.property('embed.description', 'Abici');
     });
+    it('truncates output to 2048 characters', function () {
+      const args = './$&$&$&$&$&$&$&$& ./$&$&$&$&$&$&$&$& ./$&$&$&$&$&$&$&$&';
+      let subject = run(input, args).embed.description;
+      expect(subject).to.have.lengthOf(2048);
+    });
   });
 });

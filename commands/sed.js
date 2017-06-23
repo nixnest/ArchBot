@@ -51,7 +51,7 @@ exports.run = function (obj, args) {
     if (args instanceof Array) args = args.join(' ');
     let str = obj.embed.description;
     str = commandsFromString(args).reduce((result, func) => func(result), str);
-    obj.embed.description = str;
+    obj.embed.description = str.substr(0, 2048);
     return obj;
   } catch (err) {
     return `Error: ${err.message}`;
