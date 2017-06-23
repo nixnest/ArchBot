@@ -16,8 +16,7 @@ function codePointsFromString (str) {
 
 const commandFunctions = {
   's': function substitute (first, second, flags) {
-    flags = flags.toLowerCase().replace(/[^gimuy]/g, '');
-    first = new RegExp(first, flags);
+    first = new RegExp(first, flags || '');
     return str => str.replace(first, second);
   },
   'y': function transliterate (first, second, flags) {
@@ -31,12 +30,17 @@ const commandFunctions = {
 };
 
 function commandsFromString (args) {
-  const regexp = /([sy])([\ud800-\udbff][\udc00-\udfff]|\S)(.*?)\2(.*?)\2(\S*)/g;
+  const regexp = /(?:([sy])([\ud800-\udbff][\udc00-\udfff]|\S)(.*?)\2(.*?)\2([gimuy]*)|((?:\\.|[^\s/])+)\/((?:\\.|[^\s/])+))/g;
   let commands = [];
   let match;
   while ((match = regexp.exec(args)) !== null) {
-    let func = commandFunctions[match[1]];
-    func && commands.push(func.apply(null, match.slice(3)));
+    if (match[1]) {
+      let func = commandFunctions[match[1]];
+      func && commands.push(func.apply(null, match.slice(3)));
+    } else if (match[6]) {
+      let func = commandFunctions['s'];
+      func && commands.push(func.apply(null, match.slice(6).map(x => x.replace(/\\(.)/g, '$1'))));
+    }
   }
   return commands;
 }
