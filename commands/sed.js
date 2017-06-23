@@ -39,7 +39,8 @@ function commandsFromString (args) {
       func && commands.push(func.apply(null, match.slice(3)));
     } else if (match[6]) {
       let func = commandFunctions['s'];
-      func && commands.push(func.apply(null, match.slice(6).map(x => x.replace(/\\(.)/g, '$1'))));
+      let args = match.slice(6).map(x => x.replace(/\\(.)/g, '$1'));
+      func && commands.push(func.apply(null, args.concat('g')));
     }
   }
   return commands;
@@ -55,4 +56,10 @@ exports.run = function (obj, args) {
   } catch (err) {
     return `Error: ${err.message}`;
   }
+};
+
+exports.test = {
+  codePointsFromString,
+  commandFunctions,
+  commandsFromString
 };
