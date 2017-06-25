@@ -17,7 +17,7 @@ client.on('message', msg => {
   let args = msg.content.split(' ').slice(1);
   let usertype = 'regular';
 
-  console.log (`command: ${command}\nargs: ${args}\n`);
+  console.log(`command: ${command}\nargs: ${args}\n`);
   let errMesg = 'archbot: command not found: ' + command;
 
   if (command === 'sudo') {
@@ -34,14 +34,14 @@ client.on('message', msg => {
   }
 
   if (typeof (pasta[command]) !== 'undefined') {
-    let regPasta = JSON.parse (JSON.stringify (pasta[command])); //fuck JS! 
-    let SED = require ('./commands/sed.js');
+    let regPasta = JSON.parse(JSON.stringify(pasta[command])); // fuck JS!
+    let SED = require('./commands/sed.js');
     if (Object.prototype.toString.call(regPasta) === '[object Object]') {
-      let clean = SED.run (regPasta, args);
+      let clean = SED.run(regPasta, args);
       msg.channel.send(clean);
     } else if (Object.prototype.toString.call(regPasta) === '[object Array]') {
       regPasta.forEach(function (part) {
-        let clean = SED.run (part, args);
+        let clean = SED.run(part, args);
         msg.channel.send(clean);
       });
     }
