@@ -48,6 +48,7 @@ function commandsFromString (args) {
 
 exports.run = function (obj, args) {
   try {
+    if (!obj.embed.description) return obj;
     if (args instanceof Array) args = args.join(' ');
     let str = obj.embed.description;
     str = commandsFromString(args).reduce((result, func) => func(result), str);

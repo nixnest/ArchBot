@@ -121,5 +121,13 @@ describe('sed', function () {
       let subject = run(input, args).embed.description;
       expect(subject).to.have.lengthOf(2048);
     });
+    it('ignores input that is missing a description', function () {
+      input.embed = {};
+      expect(input).to.not.have.deep.property('embed.description');
+      let subject = run(input, '');
+      expect(subject).to.have.property('embed');
+      expect(subject).to.not.have.deep.property('embed.description');
+      expect(input).to.not.have.deep.property('embed.description');
+    });
   });
 });
