@@ -1,4 +1,4 @@
-// const utils = require('../lib/utils.js');
+// const utils = require('../lib/utils.js')
 const rp = require('request-promise-native');
 const txtwiki = require('txtwiki');
 const linkRegex = /\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)) (.*?)\]/g;
