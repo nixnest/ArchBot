@@ -25,7 +25,7 @@ exports.run = function (msg, args, usertype) {
         msg.channel.send({
           embed: {
             color: 1545169,
-            description: '<:downarch:317522424012996608> **Package not found.** (Maybe it\'s a group or an AUR package?)'
+            description: '<:downarch:317522424012996608> **Package not found.**'
           }
         });
       }
