@@ -1,5 +1,6 @@
 const utils = require('../lib/utils.js')
 const rp = require('request-promise-native');
+
 exports.run = function (msg, args, usertype) {
   rp('https://www.archlinux.org/packages/search/json/?name=' + args.join(' ').toLowerCase())
     .then(htmlString => {

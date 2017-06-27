@@ -3,6 +3,7 @@ const rp = require('request-promise-native');
 const txtwiki = require('txtwiki');
 const linkRegex = /\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)) (.*?)\]/g;
 const linkNoTextRegex = /\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*))\]/g;
+
 exports.run = function (msg, args, usertype) {
   rp('https://wiki.archlinux.org/api.php?action=parse&format=json&page=' + args.join(' ').toLowerCase() + '&redirects=1&prop=wikitext&section=0&sectionpreview=1&disabletoc=1&utf8=1')
     .then(htmlString => {
