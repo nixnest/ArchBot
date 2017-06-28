@@ -5,7 +5,6 @@ const linkRegex = /\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6
 const linkNoTextRegex = /\[(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*))\]/g;
 const otherLinkType = /{{(.*)\|(.*)\|url=(.*)}}/g;
 
-exports.run = function (msg, args, usertype) {
   rp('https://wiki.archlinux.org/api.php?action=parse&format=json&page=' + args.join(' ').toLowerCase() + '&redirects=1&prop=wikitext&section=0&sectionpreview=1&disabletoc=1&utf8=1')
     .then(htmlString => {
       try {
@@ -17,7 +16,11 @@ exports.run = function (msg, args, usertype) {
         });
         text.forEach(function (part, index, arr) {
           if (part.startsWith(':')) arr[index] = '    ' + arr[index].substr(1);
-          arr[index] = txtwiki.parseWikitext(arr[index]).replace(linkRegex, '[$4]($1)').replace(linkNoTextRegex, '[(link)]($1)').replace(otherLinkType, '[(link)]($3)');
+          arr[index] = arr[index].replace(wikipediaLink, '(Wikipedia: $2)');
+          arr[index] = txtwiki.parseWikitext(arr[index]);
+          arr[index] = arr[index].replace(linkRegex, '[$4]($1)');
+          arr[index] = arr[index].replace(linkNoTextRegex, '[(link)]($1)');
+          arr[index] = arr[index].replace(otherLinkType, '[(link)]($3)'); 
         });
         msg.channel.send({
           embed: {
