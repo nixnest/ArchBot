@@ -16,7 +16,7 @@ exports.run = function (msg, args, usertype) {
         });
         text.forEach(function (part, index, arr) {
           if (part.startsWith(':')) arr[index] = '    ' + arr[index].substr(1);
-          else arr[index] = txtwiki.parseWikitext(arr[index]).replace(linkRegex, '[$4]($1)').replace(linkNoTextRegex, '[(link)]($1)');
+          arr[index] = txtwiki.parseWikitext(arr[index]).replace(linkRegex, '[$4]($1)').replace(linkNoTextRegex, '[(link)]($1)');
         });
         msg.channel.send({
           embed: {
