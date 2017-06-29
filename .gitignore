@@ -11,3 +11,6 @@ yarn.lock
 
 # Vim files
 *~
+
+# NPM files
+package-lock.json
