@@ -21,6 +21,7 @@
     "discord.js": "^11.1.0",
     "figlet": "^1.2.0",
     "fortunes": "0.0.3",
+    "fullwidth": "^1.2.0",
     "jsonfile": "^3.0.0",
     "request": "^2.81.0",
     "request-promise-native": "^1.0.4",
