@@ -28,6 +28,7 @@ exports.run = function (msg, args, usertype) {
             description: '<:downarch:317522424012996608> **Package not found.**'
           }
         });
+        console.log(e);
       }
     })
     .catch(function (err) {
@@ -37,6 +38,6 @@ exports.run = function (msg, args, usertype) {
           description: '<:downarch:317522424012996608> **An error occurred.**'
         }
       });
-      void err;
+      console.log(e);
     });
 };

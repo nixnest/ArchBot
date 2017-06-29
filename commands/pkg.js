@@ -28,15 +28,16 @@ exports.run = function (msg, args, usertype) {
             description: "<:downarch:317522424012996608> **Package not found.** (Maybe it's a group or an AUR package?)"
           }
         });
+        console.log(e);
       }
     })
-    .catch(function (err) {
+    .catch(function (e) {
       msg.channel.send({
         embed: {
           color: 1545169,
           description: '<:downarch:317522424012996608> **An error occurred.**'
         }
       });
-      void err;
+      console.log(e);
     });
 };
