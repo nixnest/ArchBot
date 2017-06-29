@@ -17,12 +17,15 @@ client.on('message', msg => {
   let args = msg.content.split(' ').slice(1);
   let usertype = 'regular';
 
+  msg.channel.startTyping();
+
   console.log(`command: ${command}\nargs: ${args}\n`);
   let errMesg = 'archbot: command not found: ' + command;
 
   if (command === 'sudo') {
     if (!msg.member.roles.exists('id', config.sudoersRole)) {
       msg.channel.send('<@' + msg.author.id + '> is not in the sudoers file. This incident will be reported.');
+      msg.channel.stopTyping();
       client.channels.get(config.sudoLogChannel).send('<@' + msg.author.id + '> is getting coal for Christmas.');
       return;
     } else {
@@ -45,12 +48,14 @@ client.on('message', msg => {
         msg.channel.send(clean);
       });
     }
+    msg.channel.stopTyping();
     return;
   }
 
   try {
     let cmdFile = require('./commands/' + command);
     cmdFile.run(msg, args, usertype);
+    msg.channel.stopTyping();
   } catch (e) {
     msg.channel.send(errMesg);
     console.log(e);
