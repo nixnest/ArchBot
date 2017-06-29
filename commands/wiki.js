@@ -16,7 +16,6 @@ exports.run = function (msg, args, usertype) {
         });
         text.forEach(function (part, index, arr) {
           if (part.startsWith(':')) arr[index] = '    ' + arr[index].substr(1);
-          arr[index] = arr[index].replace(wikipediaLink, '(Wikipedia: $2)');
           arr[index] = txtwiki.parseWikitext(arr[index]);
           arr[index] = arr[index].replace(linkRegex, '[$4]($1)');
           arr[index] = arr[index].replace(linkNoTextRegex, '[(link)]($1)');
