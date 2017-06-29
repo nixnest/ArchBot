@@ -42,6 +42,7 @@ client.on('message', msg => {
     if (Object.prototype.toString.call(regPasta) === '[object Object]') {
       let clean = SED.run(regPasta, args);
       msg.channel.send(clean);
+      msg.channel.stopTyping();
     } else if (Object.prototype.toString.call(regPasta) === '[object Array]') {
       regPasta.forEach(function (part) {
         let clean = SED.run(part, args);
@@ -58,6 +59,7 @@ client.on('message', msg => {
     msg.channel.stopTyping();
   } catch (e) {
     msg.channel.send(errMesg);
+    msg.channel.stopTyping();
     console.log(e);
   }
 });
