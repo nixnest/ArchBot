@@ -31,7 +31,7 @@ exports.run = function (msg, args, usertype) {
         console.log(e);
       }
     })
-    .catch(function (err) {
+    .catch(function (e) {
       msg.channel.send({
         embed: {
           color: 1545169,

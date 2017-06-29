@@ -1,4 +1,4 @@
-const utils = require('../lib/utils.js')
+const utils = require('../lib/utils.js');
 const rp = require('request-promise-native');
 
 exports.run = function (msg, args, usertype) {
