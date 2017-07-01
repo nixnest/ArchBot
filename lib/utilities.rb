@@ -23,4 +23,11 @@ module Utilities
           min_args: 1) do |event, *args|
     args.join(' ')
   end
+
+ command(:lusers,
+         description: "Prints the amount of lusers currently online.",
+         usage: "!lusers",
+         min_args: 0) do |event|
+    'Amount of lusers currently fixing xorg: ' + Server.online_members.length
+ end
 end
