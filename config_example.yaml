@@ -4,3 +4,4 @@ joinLogChannel: ''
 sudoLogChannel: ''
 sudoersRole: ''
 prefix: ''
+lusersList: '' #a sequence of strings

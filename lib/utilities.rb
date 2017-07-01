@@ -28,6 +28,6 @@ module Utilities
          description: "Prints the amount of lusers currently online.",
          usage: "!lusers",
          min_args: 0) do |event|
-    'Amount of lusers currently fixing xorg: ' + Server.online_members.length
+    "Amount of lusers currently #{$config['lusersList'].sample}: " + event.server.online_users.length.to_s
  end
 end
