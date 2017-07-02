@@ -19,4 +19,8 @@ module Fun
   command :figlet do |event, *args|
     "```" + $figlet[args.join('')] + "```"
   end
+
+  command :cowsay do |event, *args|
+    "```" + Cowsay.say(args.join(' '), 'cow') + "```"
+  end
 end
