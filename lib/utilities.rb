@@ -30,4 +30,11 @@ module Utilities
          min_args: 0) do |event|
     "Amount of lusers currently #{$config['lusersList'].sample}: " + event.server.online_users.length.to_s
  end
+
+ command(:checksudo,
+         description: "Prints if you're a sudoer",
+         usage: "!checksudo",
+         min_args: 0) do |event|
+    "You are a " + (event.user.roles.include?($config['sudoersRole']) ? "sudoer." : "regular user.")
+ end
 end
