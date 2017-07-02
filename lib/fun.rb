@@ -15,4 +15,8 @@ module Fun
   command :slap do |event, *args|
     "<@#{event::author::id.to_s}> slaps #{args.join(' ')} around a bit with a large trout"
   end
+
+  command :figlet do |event, *args|
+    "```" + $figlet[args.join('')] + "```"
+  end
 end

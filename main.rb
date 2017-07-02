@@ -1,12 +1,17 @@
 require 'discordrb'
 require 'fullwidth'
 require 'yaml'
+require 'figlet'
 require_relative 'lib/utilities'
 require_relative 'lib/fun'
 require_relative 'lib/info'
 
 $config = YAML.load_file('config.yaml')
 $info = YAML.load_file('info.yaml')
+
+#Figlet initialization
+$font = Figlet::Font.new("fonts/#{$config['figletFont']}.flf")
+$figlet = Figlet::Typesetter.new($font)
 
 $bot = Discordrb::Commands::CommandBot.new(token: $config['token'],
                                            prefix: $config['prefix'],
