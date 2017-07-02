@@ -20,4 +20,8 @@ module Fun
   command :cowsay do |event, *args|
     "```" + Cowsay.say(args.join(' '), 'cow') + "```"
   end
+
+  command :fortune do |event|
+    "`" + FortuneGem.give_fortune + "`"
+  end
 end
