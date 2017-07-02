@@ -5,11 +5,8 @@ module Fun
   end
 
   command :step do |event, *args|
-    if args[0] == 'on'
-      "<@#{event.author.id.to_s}> steps #{args.join(' ')}"
-    else
-      "<@#{event.author.id.to_s}> steps on #{args.join(' ')}"
-    end
+    args.to_a.delete_at(0) if args.include?('on')
+    "<@#{event.author.id.to_s}> steps on #{args.join(' ')}"
   end
 
   command :slap do |event, *args|
