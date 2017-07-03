@@ -20,4 +20,10 @@ module Info
     $info[event.user] = '```' + args + '```'
     File.write($info, $info.to_yaml)
   end
+
+  command(:rminfo) do |event|
+    $info[event.user] = '``` ```'
+    File.write($info, $info.to_yaml)
+    "Information removed."
+  end
 end
