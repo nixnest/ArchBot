@@ -6,24 +6,30 @@ module Info
     else
       @user = event.message.author
     end
+    $info = YAML.load_file('info.yaml')
     if $info.include? @user.id
         "Info for <@#{@user.id.to_s}>: ```#{$info[@user.id]}```"
       else
         "No info found for <@#{@user.id.to_s}>."
     end
+  end
 
   command(:chinfo) do |event, *args|
-    event.message.reply \
-      ('if you\'re trying to remove a bad info, just use rminfo instead') and break if \
-      event.user.roles.include?($config['sudoresRole']) or \
-      args.empty?
-    $info[event.user] = '```' + args + '```'
-    File.write($info, $info.to_yaml)
+    event.message.reply('if you\'re trying to remove a bad info, just use rminfo instead') and break if event.user.roles.include?($config['sudoresRole']) or args.empty?
+    yamlInfo = File.read 'info.yaml'
+    currentInfo = YAML.load yamlInfo
+    currentInfo[event.user.id] = args.join(' ')
+    toWrite = YAML.dump currentInfo
+    File.write('info.yaml', toWrite)
+    "Info added."
   end
 
   command(:rminfo) do |event|
-    $info[event.user] = '``` ```'
-    File.write($info, $info.to_yaml)
+    yamlInfo = File.read 'info.yaml'
+    currentInfo = YAML.load yamlInfo
+    currentInfo[event.user.id] = ''
+    toWrite = YAML.dump currentInfo
+    File.write('info.yaml', toWrite)
     "Information removed."
   end
 end
