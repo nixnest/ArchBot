@@ -28,7 +28,7 @@ module Utilities
          description: "Prints the amount of lusers currently online.",
          usage: "!lusers",
          min_args: 0) do |event|
-    "Amount of lusers currently #{$config['lusersList'].sample}: " + event.server.online_users.length.to_s
+    "Amount of lusers currently #{$config['lusersList'].sample}: " + event.server.online_users(include_idle: true).length.to_s
  end
 
  command(:checksudo,
