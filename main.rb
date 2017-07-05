@@ -9,7 +9,7 @@ require_relative 'lib/fun'
 require_relative 'lib/info'
 
 $config = YAML.load_file('config.yaml')
-$info = YAML.load_file('info.yaml')
+$infofile = 'info.yaml'
 
 #Figlet initialization
 $font = Figlet::Font.new("fonts/#{$config['figletFont']}.flf")
