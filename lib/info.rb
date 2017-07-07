@@ -1,5 +1,16 @@
 module Info
   extend Discordrb::Commands::CommandContainer
+
+  def infoWrite(index, message)
+    yamlInfo = File.read $infofile
+    currentInfo = YAML.load yamlInfo
+    currentInfo[index] = message
+    toWrite = YAML.dump currentInfo
+    File.write($infofile, toWrite)
+  end
+
+  module_function :infoWrite
+
   command(:info) do |event|
     if event.message.mentions.length == 1
       @user = event.message.mentions[0]
@@ -16,20 +27,12 @@ module Info
 
   command(:chinfo) do |event, *args|
     event.message.reply('if you\'re trying to remove a bad info, just use rminfo instead') and break if event.user.roles.include?($config['sudoresRole']) or args.empty?
-    yamlInfo = File.read $infofile
-    currentInfo = YAML.load yamlInfo
-    currentInfo[event.user.id] = args.join(' ')
-    toWrite = YAML.dump currentInfo
-    File.write($infofile, toWrite)
+    Info.infoWrite(event.user.id, args.join(' '))
     "Info added."
   end
 
   command(:rminfo) do |event|
-    yamlInfo = File.read $infofile
-    currentInfo = YAML.load yamlInfo
-    currentInfo[event.user.id] = ''
-    toWrite = YAML.dump currentInfo
-    File.write($infofile, toWrite)
+    Info.infoWrite(event.user.id, '')
     "Information removed."
   end
 end
