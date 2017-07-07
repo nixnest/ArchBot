@@ -22,6 +22,6 @@ module Fun
   end
 
   command :fortune do |event|
-    "`" + FortuneGem.give_fortune + "`"
+    "```" + FortuneGem.give_fortune + "```"
   end
 end
