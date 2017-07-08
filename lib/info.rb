@@ -26,15 +26,19 @@ module Info
   end
 
   command(:chinfo) do |event, *args|
-    event.message.reply('if you\'re trying to remove a bad info, just use rminfo instead') and break if event.user.roles.include?($config['sudoresRole']) or args.empty?
+    event.message.reply('if you\'re trying to remove a bad info, just use rminfo instead') and break if args.empty?
     msgParsed = event.message.content
     msgParsed.sub!(/^.\bchinfo\b\s/, '')
     Info.infoWrite(event.user.id, msgParsed)
     "Info added."
   end
 
-  command(:rminfo) do |event|
-    Info.infoWrite(event.user.id, '')
+  command(:rminfo) do |event, *args|
+    if ! args.empty?
+      $userType == 'sudoer' ? Info.infoWrite(args.id, '') : event.channel.send("Permission denied.") && break
+    else
+      Info.infoWrite(event.user.id, '')
+    end
     "Information removed."
   end
 end
