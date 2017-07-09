@@ -14,7 +14,7 @@ module Fun
   end
 
   command :figlet do |event, *args|
-    "```" + $figlet[args.join('')] + "```"
+      "```" + $figlet[args.join('')] + "```" if args.length > 0
   end
 
   command :cowsay do |event, *args|

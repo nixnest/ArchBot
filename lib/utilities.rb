@@ -1,27 +1,46 @@
 module Utilities
   extend Discordrb::Commands::CommandContainer
+
   command(:random,
           description: "Picks a random number.",
-          usage: "[min] [max]",
-          min_args: 2,
-          max_args: 2) do |event, min, max|
-    if min && max
-      rand(min.to_i .. max.to_i)
+         usage: "<min> <max>") do |event|
+    # Parse the message and keep all parts but the command
+    # ["::random 1 2 4 5  -5"] => ["1", "2", "4", "5", "-5"]
+    args = (event.message.content.split (' '))[1 .. -1]
+
+    # Args to integer
+    input = Array.new(args.size){ |i| args[i].to_i }
+
+    case input.size
+    when 0
+      # Integer "limits" (there's no such thing in ruby though)
+      min = -(2**(0.size * 8 -2))
+      max = min.abs
+    when 1
+      min = 0
+      max = 0
+      # If one args is given, the result will be of the same sign as the arg
+      input[0] >= 0? max = input[0] : min = input[0]
+    else
+      min = input.min
+      max = input.max
     end
+    rand(min .. max)
+
   end
 
   command(:bold,
           description: "Makes a message bold.",
           usage: "[text to bold]",
-          min_args: 1) do |event, *args|
-    '**' + args.join(' ') + '**'
+          min_args: 1) do |event|
+          '**' + (event.message.content.split (' '))[1 .. -1].join(' ') + '**'
   end
 
  command(:echo,
           description: "Echoes text.",
           usage: "[text to echo]",
-          min_args: 1) do |event, *args|
-    args.join(' ')
+          min_args: 1) do |event|
+          (event.message.content.split (' '))[1 .. -1].join(' ')
   end
 
  command(:lusers,
