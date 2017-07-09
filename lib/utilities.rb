@@ -1,12 +1,13 @@
 module Utilities
   extend Discordrb::Commands::CommandContainer
 
-  # FIXME, ISSUE # 30
-  # Users shouldn't need and extra step for negative values
-  # As of now the values need to be quoted when they are negative
   command(:random,
           description: "Picks a random number.",
-         usage: "<min> <max>") do |event, *args|
+         usage: "<min> <max>") do |event|
+    # Parse the message and keep all parts but the command
+    # ["::random 1 2 4 5  -5"] => ["1", "2", "4", "5", "-5"]
+    args = (event.message.content.split (' '))[1 .. -1]
+
     # Args to integer
     input = Array.new(args.size){ |i| args[i].to_i }
 
