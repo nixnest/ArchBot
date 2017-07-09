@@ -11,9 +11,6 @@ require_relative 'lib/info'
 $config = YAML.load_file('config.yaml')
 $infofile = 'info.yaml'
 $pasta = YAML.load_file('pasta.yaml')
-$pastaArray =   %i(interject norichard stfu gentoo paste
-                 systemd yearoftheemojidesktop emojidelete
-                 emojinterject fossdating paytoilets lennyface)
 
 #Figlet initialization
 $font = Figlet::Font.new("fonts/#{$config['figletFont']}.flf")
@@ -45,16 +42,21 @@ $bot.command :sudo do |event, *args|
   end
 end
 
-$bot.command $pastaArray do |event| #This has to be the most disgusting hack ever. I'm not proud of it at all.
-  index = event.message.content.delete($bot.prefix)
-  event.channel.send_embed do |embed|
-    unless $pasta[index]['embed']['author'].empty?
-      embed.author ||= Discordrb::Webhooks::EmbedAuthor.new(
-        name: $pasta[index]['embed']['author']['name'],
-        url: '',
-        icon_url: $pasta[index]['embed']['author']['icon_url'])
+$pasta.keys.each do |pasta| # Slightly improved
+  $bot.command pasta.to_sym do |event|
+  
+    event.channel.send_embed do |embed|
+      embed_raw = $pasta[pasta]['embed']
+      embed.description = embed_raw['description']
+      
+      if embed_raw['author']
+        embed_raw = embed_raw['author']
+        embed.author = Discordrb::Webhooks::EmbedAuthor.new(
+                name: embed_raw['name'],
+                url: embed_raw['url'],
+                icon_url: embed_raw['icon_url'] )
+      end
     end
-    embed.description = ($pasta[index]['embed']['description'])
   end
 end
 
