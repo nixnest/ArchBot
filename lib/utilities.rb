@@ -32,15 +32,15 @@ module Utilities
   command(:bold,
           description: "Makes a message bold.",
           usage: "[text to bold]",
-          min_args: 1) do |event, *args|
-    '**' + args.join(' ') + '**'
+          min_args: 1) do |event|
+          '**' + (event.message.content.split (' '))[1 .. -1].join(' ') + '**'
   end
 
  command(:echo,
           description: "Echoes text.",
           usage: "[text to echo]",
-          min_args: 1) do |event, *args|
-    args.join(' ')
+          min_args: 1) do |event|
+          (event.message.content.split (' '))[1 .. -1].join(' ')
   end
 
  command(:lusers,
