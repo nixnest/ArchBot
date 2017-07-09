@@ -25,7 +25,7 @@ module Utilities
       min = input.min
       max = input.max
     end
-    a = rand(min .. max)
+    rand(min .. max)
 
   end
 
