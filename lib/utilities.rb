@@ -3,7 +3,7 @@ module Utilities
 
   command(:random,
           description: "Picks a random number.",
-         usage: "<min> <max>") do |event|
+          usage: "<min> <max>") do |event|
     # Parse the message and keep all parts but the command
     # ["::random 1 2 4 5  -5"] => ["1", "2", "4", "5", "-5"]
     args = (event.message.content.split (' '))[1 .. -1]
@@ -45,15 +45,13 @@ module Utilities
 
  command(:lusers,
          description: "Prints the amount of lusers currently online.",
-         usage: "!lusers",
-         min_args: 0) do |event|
+         usage: "!lusers") do |event|
     "Amount of lusers currently #{$config['lusersList'].sample}: " + event.server.online_users(include_idle: true).length.to_s
  end
 
  command(:checksudo,
          description: "Prints if you're a sudoer",
-         usage: "!checksudo",
-         min_args: 0) do |event|
+         usage: "!checksudo") do |event|
     "You are a " + (event.user.roles.include?($config['sudoersRole']) ? "sudoer." : "regular user.")
  end
 end

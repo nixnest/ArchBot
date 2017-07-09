@@ -11,7 +11,10 @@ module Info
 
   module_function :infoWrite
 
-  command(:info) do |event|
+  command(:info,
+          description: "Displays information about an user",
+          usage: "If no user is tagged: display your own info
+                  If an user is tagged: attempt to display said user's info") do |event|
     if event.message.mentions.length == 1
       @user = event.message.mentions[0]
     else
@@ -25,7 +28,10 @@ module Info
     end
   end
 
-  command(:chinfo) do |event, *args|
+  command(:chinfo,
+          description: "Overwrites your current information",
+          usage: "[info to apply]",
+          min_args: 1) do |event, *args|
     event.message.reply('if you\'re trying to remove a bad info, just use rminfo instead') and break if args.empty?
     msgParsed = event.message.content
     msgParsed.sub!(/^.\bchinfo\b\s/, '')
@@ -33,7 +39,8 @@ module Info
     "Info added."
   end
 
-  command(:rminfo) do |event, *args|
+  command(:rminfo,
+          description: "Removes your current information") do |event, *args|
     if ! args.empty?
       $userType == 'sudoer' ? Info.infoWrite(args.id, '') : event.channel.send("Permission denied.") && break
     else
