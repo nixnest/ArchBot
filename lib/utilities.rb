@@ -1,13 +1,32 @@
 module Utilities
   extend Discordrb::Commands::CommandContainer
+
+  # FIXME, ISSUE # 30
+  # Users shouldn't need and extra step for negative values
+  # As of now the values need to be quoted when they are negative
   command(:random,
           description: "Picks a random number.",
-          usage: "[min] [max]",
-          min_args: 2,
-          max_args: 2) do |event, min, max|
-    if min && max
-      rand(min.to_i .. max.to_i)
+         usage: "<min> <max>",
+         max_args: 2) do |event, *args|
+    # Args to integer
+    input = Array.new(args.size){ |i| args[i].to_i }
+
+    case input.size
+    when 0
+      # Integer "limits" (there's no such thing in ruby though)
+      min = -(2**(0.size * 8 -2))
+      max = min.abs
+    when 1
+      min = 0
+      max = 0
+      # If one args is given, the result will be of the same sign as the arg
+      input[0] >= 0? max = input[0] : min = input[0]
+    else
+      min = input.min
+      max = input.max
     end
+    a = rand(min .. max)
+
   end
 
   command(:bold,
