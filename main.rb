@@ -10,6 +10,10 @@ require_relative 'lib/info'
 
 $config = YAML.load_file('config.yaml')
 $infofile = 'info.yaml'
+$pasta = YAML.load_file('pasta.yaml')
+$pastaArray =   %i(interject norichard stfu gentoo paste
+                 systemd yearoftheemojidesktop emojidelete
+                 emojinterject fossdating paytoilets lennyface)
 
 #Figlet initialization
 $font = Figlet::Font.new("fonts/#{$config['figletFont']}.flf")
@@ -38,6 +42,19 @@ $bot.command :sudo do |event, *args|
   else
     event.channel.send_message("<@#{event.author.id.to_s}> is not in the sudoers file. This incident will be reported.")
     $bot.send_message($config['sudoLogChannel'], "<@#{event.author.id.to_s}> is getting coal for Christmas.")
+  end
+end
+
+$bot.command $pastaArray do |event| #This has to be the most disgusting hack ever. I'm not proud of it at all.
+  index = event.message.content.delete($bot.prefix)
+  event.channel.send_embed do |embed|
+    unless $pasta[index]['embed']['author'].empty?
+      embed.author ||= Discordrb::Webhooks::EmbedAuthor.new(
+        name: $pasta[index]['embed']['author']['name'],
+        url: '',
+        icon_url: $pasta[index]['embed']['author']['icon_url'])
+    end
+    embed.description = ($pasta[index]['embed']['description'])
   end
 end
 
