@@ -6,8 +6,7 @@ module Utilities
   # As of now the values need to be quoted when they are negative
   command(:random,
           description: "Picks a random number.",
-         usage: "<min> <max>",
-         max_args: 2) do |event, *args|
+         usage: "<min> <max>") do |event, *args|
     # Args to integer
     input = Array.new(args.size){ |i| args[i].to_i }
 
