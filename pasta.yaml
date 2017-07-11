@@ -207,3 +207,9 @@ paytoilets:
 lennyface:
   embed:
     description: "( ͡° ͜ʖ ͡°)"
+init:
+  embed:
+    author:
+      name: systemd
+    description: "ERROR: Root device mounted successfully, but /sbin/init dies not exist.
+      Bailing out, you are on your own. Good luck."
