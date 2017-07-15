@@ -43,12 +43,19 @@ $bot.command :sudo do |event, *args|
 end
 
 $pasta.keys.each do |pasta| # Slightly improved
-  $bot.command pasta.to_sym do |event|
-  
+  $bot.command pasta.to_sym do |event, *args|
+
+    sed = []
+    args.each { |string| string.split('/').each { |subs| sed.push(subs)}}
     event.channel.send_embed do |embed|
       embed_raw = $pasta[pasta]['embed']
-      embed.description = embed_raw['description']
-      
+      unless sed.empty?
+        sed.each_slice(2) do |match, replace|
+          embed_raw['description'].gsub!(/#{match}/i, replace)
+        end
+        embed.description = embed_raw['description']
+      end
+
       if embed_raw['author']
         embed_raw = embed_raw['author']
         embed.author = Discordrb::Webhooks::EmbedAuthor.new(
