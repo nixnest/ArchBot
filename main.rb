@@ -52,7 +52,7 @@ $pasta.keys.each do |pasta| # Slightly improved
       embed.description = embed_raw['description']
       unless sed.empty?
         sed.each_slice(2) do |match, replace|
-          embed.description.gsub!(/#{match}/i, replace)
+          embed.description.gsub!(/#{match}/i, replace || '')
         end
       end
 
