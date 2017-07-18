@@ -3,10 +3,9 @@ module Admin
 
   command :clear do |event, *args|
     unless $userType != 'sudoer'
-      event.channel.history(args[0].to_i || $config['defaultClearAmount']).each do |message|
-        event.channel.delete_message(message.id)
-      end
-      break #THIS IS VITAL DO NOT REMOVE
+      event.channel.send_message("Invalid amount") && break if args[0].to_i > 100
+      toDelete = event.channel.history(args[0].to_i || 100)
+      event.channel.delete_messages(toDelete)
     else
       event.channel.send_message("Permission denied") && break
     end
