@@ -5,4 +5,5 @@ sudoLogChannel: ''
 sudoersRole: ''
 figletFont: '' #a font name from the fonts folder minus the .flf
 prefix: ''
-lusersList: '' #a sequence of strings
+lusersList: '' #a sequence of stringos
+defaultClearAmount: ''
