@@ -4,9 +4,11 @@ require 'yaml'
 require 'figlet'
 require 'cowsay'
 require 'fortune_gem'
+
 require_relative 'lib/utilities'
 require_relative 'lib/fun'
 require_relative 'lib/info'
+require_relative 'lib/admin'
 
 $config = YAML.load_file('config.yaml')
 $infofile = 'info.yaml'
@@ -27,6 +29,7 @@ $bot = Discordrb::Commands::CommandBot.new(token: $config['token'],
 $bot.include! Utilities
 $bot.include! Fun
 $bot.include! Info
+$bot.include! Admin
 
 $userType = 'normal'
 
