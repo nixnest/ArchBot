@@ -36,6 +36,14 @@ module Fun
     "```" + Cowsay.say(args.join(' '), 'cow') + "```"
   end
 
+  command(:me,
+          description: "Executes a self action",
+          usage: "[text]",
+          min_args: 1) do |event, *args|
+    event.channel.delete_message(event.channel.history(1)[0])
+    "<@#{event.user.id.to_s}> *#{args.join(' ')}*"
+  end
+
   command(:fortune,
           description: "Outputs a random fortune / divination / bad joke") do |event|
     "```" + FortuneGem.give_fortune + "```"
