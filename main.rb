@@ -66,6 +66,13 @@ $pasta.keys.each do |pasta| # Slightly improved
                 url: embed_raw['url'],
                 icon_url: embed_raw['icon_url'] )
       end
+
+      if embed_raw['image']
+        embed_raw = embed_raw['image']
+        embed.image = Discordrb::Webhooks::EmbedImage.new(
+                url: embed_raw['url'])
+      end
+
     end
   end
 end
