@@ -14,10 +14,10 @@ module Admin
   command :timeout do |event, *args|
     unless $userType != 'sudoer'
       timeOut = fork do
-        @user = event.message.mentions[0].on($config['serverID'])
-        @user.add_role($config['timeoutRole'])
+        user = event.message.mentions[0].on($config['serverID'])
+        user.add_role($config['timeoutRole'])
         sleep args[1].to_i
-        @user.remove_role($config['timeoutRole'])
+        user.remove_role($config['timeoutRole'])
       end
       puts Process.detach(timeOut) #This puts is imporant so the thread ID
     else                           #Doesn't get outputted by the bot
