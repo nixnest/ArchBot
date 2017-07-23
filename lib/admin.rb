@@ -1,7 +1,9 @@
 module Admin
   extend Discordrb::Commands::CommandContainer
 
-  command :clear do |event, *args|
+  command(:clear,
+          description: "Clears N amount of messages. If no arguments are specified,
+                        100 messages will be cleared. Requires superuser") do |event, *args|
     unless $userType != 'sudoer'
       event.channel.send_message("Invalid amount") && break if args[0].to_i > 100
       toDelete = event.channel.history(args.empty? ? 100 : args[0].to_i+1)
@@ -11,7 +13,10 @@ module Admin
     end
   end
 
-  command :timeout do |event, *args|
+  command(:timeout,
+          description: "Times out a user for N seconds. Requires superuser",
+          min_args: 2,
+          usage: "[user to timeout] [N seconds of timeout]") do |event, *args|
     unless $userType != 'sudoer'
       timeOut = fork do
         user = event.message.mentions[0].on($config['serverID'])
