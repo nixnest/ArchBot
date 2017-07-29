@@ -22,9 +22,9 @@ module Info
     end
     info = YAML.load_file($infofile)
     if info.include? user.id and info[user.id] != ''
-        "Info for <@#{user.id.to_s}>: ```#{info[user.id]}```"
-      else
-        "No info found for <@#{user.id.to_s}>."
+      event.channel.send_message("Info for <@#{user.id.to_s}>: ```#{info[user.id]}```")
+    else
+      event.channel.send_message("No info found for <@#{user.id.to_s}>.")
     end
   end
 
@@ -36,7 +36,7 @@ module Info
     msgParsed = event.message.content
     msgParsed.sub!(/^.\bchinfo\b\s/, '')
     Info.infoWrite(event.user.id, msgParsed)
-    "Info added."
+    event.channel.send_message("Info added.")
   end
 
   command(:rminfo,
@@ -46,6 +46,6 @@ module Info
     else
       Info.infoWrite(event.user.id, '')
     end
-    "Information removed."
+    event.channel.send_message("Information removed.")
   end
 end

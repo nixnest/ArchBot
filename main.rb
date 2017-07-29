@@ -39,10 +39,12 @@ $bot.command :sudo do |event, *args|
     args.slice!(0)
     $userType = 'sudoer'
     $bot.execute_command(runCommand.to_sym, event, args)
+    $userType = 'normal'
   else
     event.channel.send_message("<@#{event.author.id.to_s}> is not in the sudoers file. This incident will be reported.")
     $bot.send_message($config['sudoLogChannel'], "<@#{event.author.id.to_s}> is getting coal for Christmas.")
   end
+  nil
 end
 
 $pasta.keys.each do |pasta| # Slightly improved

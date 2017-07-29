@@ -13,27 +13,27 @@ module Fun
           usage: "[text]",
           min_args: 1) do |event, *args|
     args.to_a.delete_at(0) if args.include?('on')
-    "<@#{event.author.id.to_s}> steps on #{args.join(' ')}"
+    event.channel.send_message("<@#{event.author.id.to_s}> steps on #{args.join(' ')}")
   end
 
   command(:slap,
           description: "Hit someone or something",
           usage: "[text]") do |event, *args|
-    "<@#{event::author::id.to_s}> slaps #{args.join(' ')} around a bit with a large trout"
+    event.channel.send_message("<@#{event::author::id.to_s}> slaps #{args.join(' ')} around a bit with a large trout")
   end
 
   command(:figlet,
           description: "Turns a message into big ASCII art letters",
           usage: "[text]",
           min_args: 1) do |event, *args|
-    "```" + $figlet[args.join('')] + "```" if args.length > 0
+    event.channel.send_message("```" + $figlet[args.join('')] + "```")
   end
 
   command(:cowsay,
           description: "Wraps a message with an ASCII art cow",
           usage: "[text]",
           min_args: 1) do |event, *args|
-    "```" + Cowsay.say(args.join(' '), 'cow') + "```"
+    event.channel.send_message("```" + Cowsay.say(args.join(' '), 'cow') + "```")
   end
 
   command(:me,
@@ -41,11 +41,11 @@ module Fun
           usage: "[text]",
           min_args: 1) do |event, *args|
     event.channel.delete_message(event.channel.history(1)[0])
-    "<@#{event.user.id.to_s}> *#{args.join(' ')}*"
+    event.channel.send_message("<@#{event.user.id.to_s}> *#{args.join(' ')}*")
   end
 
   command(:fortune,
           description: "Outputs a random fortune / divination / bad joke") do |event|
-    "```" + FortuneGem.give_fortune + "```"
+    event.channel.send_message("```" + FortuneGem.give_fortune + "```")
   end
 end
