@@ -39,7 +39,7 @@ module Utilities
  command(:lusers,
          description: "Prints the amount of lusers currently online.",
          usage: "!lusers") do |event|
-    event.channel.send_message("Amount of lusers currently #{$config['lusersList'].sample}: " + event.server.online(_users(include_idle: true).length.to_s))
+    event.channel.send_message("Amount of lusers currently #{$config['lusersList'].sample}: " + event.server.online_users(include_idle: true).length.to_s)
  end
 
  command(:checksudo,
