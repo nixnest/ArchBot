@@ -1,16 +1,22 @@
-# ArchBot
+<h1 align="center">ArchBot, the bot for the morally superior.</h1>
 
-Bot for the /r/archlinux Discord. Right now, it has 3 commands:
+*Bot created and maintained by users of the /r/archlinux Discord server.*
 
-- `!info @user`: gives you the set info on a user
-- `!chinfo <info>`: changes your listing
-- `!rminfo <info>`: removes your listing
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/) [![MIT Licence](https://img.shields.io/badge/LIcense-MIT-blue.svg)](https://opensource.org/licenses/mit-license.php) [![Arch Powered](https://img.shields.io/badge/Arch-Powered-blue.svg)](https://www.archlinux.org/) ![Gems](https://img.shields.io/badge/gems-5-red.svg)
+
+## Commands
+
+All the commands are available running `!help [command]`.
 
 ## Installation
 
-Move `db_sample.json` to `db.json` and `config_sample.json` to `config.json`
-In config.json, add your Discord bot token.
+Generate an `info.yaml` file and copy `config_example.yaml` into `config.yaml`, filling the requested values.
+
 ```sh
-$ npm install
-$ node main.js
+$ bundle install
+$ ruby main.rb
 ```
+
+## License
+
+MIT

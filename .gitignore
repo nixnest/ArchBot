@@ -3,8 +3,8 @@ config.json
 node_modules
 *.swp
 
-# Private files
-*.priv.*
+config.yaml
+info.yaml
 
 # Yarn lock
 yarn.lock
@@ -14,3 +14,6 @@ yarn.lock
 
 # NPM files
 package-lock.json
+
+# Priv files
+*.priv.*
