@@ -2,7 +2,7 @@
 
 *Bot created and maintained by users of the /r/archlinux Discord server.*
 
-[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/) [![MIT Licence](https://img.shields.io/badge/LIcense-MIT-blue.svg)](https://opensource.org/licenses/mit-license.php) [![Arch Powered](https://img.shields.io/badge/Arch-Powered-blue.svg)](https://www.archlinux.org/) ![Gems](https://img.shields.io/badge/gems-5-red.svg)
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/) [![MIT Licence](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/mit-license.php) [![Arch Powered](https://img.shields.io/badge/Arch-Powered-blue.svg)](https://www.archlinux.org/) ![Gems](https://img.shields.io/badge/gems-5-red.svg)
 
 ## Commands
 
