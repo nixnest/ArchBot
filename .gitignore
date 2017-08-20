@@ -1,19 +1,10 @@
-db.json
-config.json
-node_modules
 *.swp
 
 config.yaml
 info.yaml
 
-# Yarn lock
-yarn.lock
-
 # Vim files
 *~
 
-# NPM files
-package-lock.json
-
-# Priv files
-*.priv.*
+# Ruby files
+Gemfile.lock
