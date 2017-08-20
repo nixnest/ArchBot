@@ -49,32 +49,40 @@ end
 
 $pasta.keys.each do |pasta| # Slightly improved
   $bot.command pasta.to_sym do |event, *args|
+    catch :RegexError do
 
-    sed = []
-    args.each { |string| string.split('/').each { |subs| sed.push(subs)}}
-    event.channel.send_embed do |embed|
-      embed_raw = $pasta[pasta]['embed']
-      embed.description = embed_raw['description']
-      unless sed.empty?
-        sed.each_slice(2) do |match, replace|
-          embed.description.gsub!(/#{match}/i, replace || '')
+      sed = []
+      args.each { |string| string.split('/').each { |subs| sed.push(subs)}}
+      event.channel.send_embed do |embed|
+        $pasta = YAML.load_file('pasta.yaml')
+        embed_raw = $pasta[pasta]['embed']
+        embed.description = embed_raw['description']
+        unless sed.empty?
+          sed.each_slice(2) do |match, replace|
+            begin
+              embed.description.gsub!(/#{match}/i, replace || '')
+            rescue RegexpError
+              event.channel.send_message("ERROR: Invalid Regex")
+              throw :RegexError
+            end
+          end
         end
-      end
 
-      if embed_raw['author']
-        embed_raw = embed_raw['author']
-        embed.author = Discordrb::Webhooks::EmbedAuthor.new(
-                name: embed_raw['name'],
-                url: embed_raw['url'],
-                icon_url: embed_raw['icon_url'] )
-      end
+        if embed_raw['author']
+          embed_raw = embed_raw['author']
+          embed.author = Discordrb::Webhooks::EmbedAuthor.new(
+                  name: embed_raw['name'],
+                  url: embed_raw['url'],
+                  icon_url: embed_raw['icon_url'] )
+        end
 
-      if embed_raw['image']
-        embed_raw = embed_raw['image']
-        embed.image = Discordrb::Webhooks::EmbedImage.new(
-                url: embed_raw['url'])
-      end
+        if embed_raw['image']
+          embed_raw = embed_raw['image']
+          embed.image = Discordrb::Webhooks::EmbedImage.new(
+                  url: embed_raw['url'])
+        end
 
+      end
     end
   end
 end

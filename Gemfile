@@ -4,4 +4,5 @@ source "https://rubygems.org" do
     gem 'figlet'
     gem 'cowsay'
     gem 'fortune_gem'
+    gem 'pry'
 end
