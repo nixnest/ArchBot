@@ -11,7 +11,7 @@ require_relative 'lib/info'
 require_relative 'lib/admin'
 
 $config = YAML.load_file('config.yaml')
-$infofile = 'info.yaml'
+$infofile = $config['infoFile']
 $pasta = YAML.load_file('pasta.yaml')
 
 #Figlet initialization
