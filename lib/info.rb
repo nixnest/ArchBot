@@ -14,7 +14,8 @@ module Info
   command(:info,
           description: "Displays information about an user",
           usage: "If no user is tagged: display your own info
-                  If an user is tagged: attempt to display said user's info") do |event|
+                  If an user is tagged: attempt to display said user's info") \
+  do |event|
     if event.message.mentions.length == 1
       user = event.message.mentions[0]
     else
@@ -22,7 +23,8 @@ module Info
     end
     info = YAML.load_file($infofile)
     if info.include? user.id and info[user.id] != ''
-      event.channel.send_message("Info for <@#{user.id.to_s}>: ```#{info[user.id]}```")
+      event.channel.send_message("Info for <@#{user.id.to_s}>: " \
+                                 "```#{info[user.id]}```")
     else
       event.channel.send_message("No info found for <@#{user.id.to_s}>.")
     end
@@ -31,8 +33,10 @@ module Info
   command(:chinfo,
           description: "Overwrites your current information",
           usage: "[info to apply]",
-          min_args: 1) do |event, *args|
-    event.message.reply('if you\'re trying to remove a bad info, just use rminfo instead') and break if args.empty?
+          min_args: 1) \
+  do |event, *args|
+    event.message.reply("if you're trying to remove a bad info, " \
+                        "just use rminfo instead") and break if args.empty?
     msgParsed = event.message.content
     msgParsed.sub!(/^.\bchinfo\b\s/, '')
     Info.infoWrite(event.user.id, msgParsed)
@@ -40,12 +44,15 @@ module Info
   end
 
   command(:rminfo,
-          description: "Removes your current information") do |event, *args|
+          description: "Removes your current information") \
+  do |event, *args|
     if ! args.empty?
-      $userType == 'sudoer' ? Info.infoWrite(args.id, '') : event.channel.send("Permission denied.") && break
+      $userType == 'sudoer' ? Info.infoWrite(args.id, '') :
+        event.channel.send("Permission denied.") && break
     else
       Info.infoWrite(event.user.id, '')
     end
     event.channel.send_message("Information removed.")
   end
+
 end
