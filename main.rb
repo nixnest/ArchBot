@@ -44,9 +44,7 @@ do |event, *args|
     $userType = 'normal'
   else
     event.channel.send_message("<@#{event.author.id.to_s}> is not in the " \
-                                 "sudoers file. This incident will be reported.")
-    $bot.send_message($config['sudoLogChannel'], "<@#{event.author.id.to_s}> " \
-                       "is getting coal for Christmas.")
+      "sudoers file. This incident will be reported.")
   end
   nil
 end
