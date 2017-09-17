@@ -4,7 +4,8 @@ module Admin
   command(:clear,
           description: "Clears N amount of messages. If no arguments are " \
                        "specified, 100 messages will be cleared. " \
-                       "Requires superuser") \
+                       "Requires superuser",
+          help_available: false) \
   do |event, *args|
     unless $userType != 'sudoer'
       event.channel.send_message("Invalid amount") &&
@@ -19,7 +20,8 @@ module Admin
   command(:timeout,
           description: "Times out a user for N seconds. Requires superuser",
           min_args: 2,
-          usage: "[user to timeout] [N seconds of timeout]") \
+          usage: "[user to timeout] [seconds of timeout]",
+          help_available: false) \
   do |event, *args|
     unless $userType != 'sudoer'
       timeOut = fork do

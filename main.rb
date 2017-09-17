@@ -19,12 +19,13 @@ $font = Figlet::Font.new("fonts/#{$config['figletFont']}.flf")
 $figlet = Figlet::Typesetter.new($font)
 
 $bot = Discordrb::Commands::CommandBot.new(token: $config['token'],
-                                           prefix: $config['prefix'],
-                                           advanced_functionality: true,
-                                           spaces_allowed: true,
-                                           chain_delimiter: '|',
-                                           previous: '-',
-                                           ignore_bots: true)
+  prefix: $config['prefix'],
+  advanced_functionality: true,
+  spaces_allowed: true,
+  chain_delimiter: '|',
+  previous: '-',
+  ignore_bots: true,
+  command_doesnt_exist_message: "zsh: command not found")
 
 $bot.include! Utilities
 $bot.include! Fun
@@ -33,7 +34,8 @@ $bot.include! Admin
 
 $userType = 'normal'
 
-$bot.command :sudo do |event, *args|
+$bot.command :sudo \
+do |event, *args|
   if event.author.roles.include?($config['sudoersRole'])
     runCommand = args[0]
     args.slice!(0)
@@ -42,9 +44,9 @@ $bot.command :sudo do |event, *args|
     $userType = 'normal'
   else
     event.channel.send_message("<@#{event.author.id.to_s}> is not in the " \
-        "sudoers file. This incident will be reported.")
+                                 "sudoers file. This incident will be reported.")
     $bot.send_message($config['sudoLogChannel'], "<@#{event.author.id.to_s}> " \
-        "is getting coal for Christmas.")
+                       "is getting coal for Christmas.")
   end
   nil
 end
@@ -73,15 +75,15 @@ $pasta.keys.each do |pasta| # Slightly improved
         if embed_raw['author']
           embed_raw = embed_raw['author']
           embed.author = Discordrb::Webhooks::EmbedAuthor.new(
-                  name: embed_raw['name'],
-                  url: embed_raw['url'],
-                  icon_url: embed_raw['icon_url'] )
+            name: embed_raw['name'],
+            url: embed_raw['url'],
+            icon_url: embed_raw['icon_url'] )
         end
 
         if embed_raw['image']
           embed_raw = embed_raw['image']
           embed.image = Discordrb::Webhooks::EmbedImage.new(
-                  url: embed_raw['url'])
+            url: embed_raw['url'])
         end
 
       end
