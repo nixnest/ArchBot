@@ -12,8 +12,9 @@ module Admin
         break if args[0].to_i > 100
       toDelete = event.channel.history(args.empty? ? 100 : args[0].to_i+1)
       event.channel.delete_messages(toDelete)
+      "Clearing..."
     else
-      event.channel.send_message("Permission denied") && break
+      "Permission denied."
     end
   end
 
@@ -29,10 +30,11 @@ module Admin
         user.add_role($config['timeoutRole'])
         sleep args[1].to_i
         user.remove_role($config['timeoutRole'])
+        "#{user.name} timed out for #{args[1].to_i}"
       end
       puts Process.detach(timeOut) #This puts is imporant so the thread ID
     else                           #Doesn't get outputted by the bot
-      event.channel.send_message("Permission denied.")
+      "Permission denied."
     end
 
   end

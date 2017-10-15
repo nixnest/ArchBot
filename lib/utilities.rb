@@ -27,8 +27,7 @@ module Utilities
       min = input.min
       max = input.max
     end
-    event.channel.send_message(rand(min .. max))
-
+    rand(min .. max)
   end
 
   command(:echo,
@@ -36,26 +35,20 @@ module Utilities
           usage: "[text to echo]",
           min_args: 1) \
   do |event, *args|
-    event.channel.send_message(args.join(' '))
+    args.join(' ')
   end
 
   command(:lusers,
           description: "Prints the amount of lusers currently online.",
           usage: "!lusers") \
   do |event|
-    event.channel.send_message("Amount of lusers currently " \
-                               "#{$config['lusersList'].sample}: " +
-                               event.server.online_users(include_idle: true)
-                                 .length.to_s)
+    "Amount of lusers currently #{$config['lusersList'].sample}: #{event.server.online_users(include_idle: true).length.to_s}"
   end
 
   command(:checksudo,
           description: "Prints if you're a sudoer",
           usage: "!checksudo") \
   do |event|
-    event.channel.send_message("You are a " +
-                               (event.user.roles.
-                                  include?($config['sudoersRole']) ?
-                                  "sudoer." : "regular user."))
+    "You are a #{event.user.roles.include?($config['sudoersRole'])?'sudoer':'regular user'}."
   end
 end

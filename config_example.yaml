@@ -1,9 +1,6 @@
 ---
 token:
 serverID: ''
-joinLogChannel: ''
-sudoLogChannel: ''
-infoFile: ''
 sudoersRole: ''
 timeoutRole: ''
 figletFont: '' #a font name from the fonts folder minus the .flf

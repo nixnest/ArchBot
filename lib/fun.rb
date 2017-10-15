@@ -15,8 +15,7 @@ module Fun
           min_args: 1) \
   do |event, *args|
     args.to_a.delete_at(0) if args.include?('on')
-    event.channel.send_message("<@#{event.author.id.to_s}> steps on " \
-                               "#{args.join(' ')}")
+    "<@#{event.author.id.to_s}> steps on #{args.join(' ')}"
   end
 
   command(:slap,
@@ -32,7 +31,7 @@ module Fun
           usage: "[text]",
           min_args: 1) \
   do |event, *args|
-    event.channel.send_message("```" + $figlet[args.join('')] + "```")
+    "```" + $figlet[args.join('')] + "```"
   end
 
   command(:cowsay,
@@ -40,7 +39,7 @@ module Fun
           usage: "[text]",
           min_args: 1) \
   do |event, *args|
-    event.channel.send_message("```" + Cowsay.say(args.join(' '), 'cow') + "```")
+    "```" + Cowsay.say(args.join(' '), 'cow') + "```"
   end
 
   command(:me,
@@ -49,12 +48,12 @@ module Fun
           min_args: 1) \
   do |event, *args|
     event.channel.delete_message(event.channel.history(1)[0])
-    event.channel.send_message("<@#{event.user.id.to_s}> *#{args.join(' ')}*")
+    "<@#{event.user.id.to_s}> *#{args.join(' ')}*"
   end
 
   command(:fortune,
           description: "Outputs a random fortune / divination / bad joke") \
   do |event|
-    event.channel.send_message("```" + FortuneGem.give_fortune + "```")
+    "```" + FortuneGem.give_fortune + "```"
   end
 end
