@@ -1,4 +1,4 @@
-<h1 align="center">ArchBot - bot for the [Arch Linux Discord](https://discord.me/arch) server.</h1>
+<h1 align="center">ArchBot - bot for the <a href="https://discord.me/arch">Arch Linux Discord</a> server.</h1>
 
 *Bot created and maintained by users of the /r/archlinux Discord server.*
 
