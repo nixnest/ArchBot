@@ -5,6 +5,7 @@ require 'figlet'
 require 'cowsay'
 require 'fortune_gem'
 
+require_relative 'lib/patches'
 require_relative 'lib/utilities'
 require_relative 'lib/fun'
 require_relative 'lib/admin'
