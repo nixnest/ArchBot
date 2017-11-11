@@ -39,7 +39,20 @@ module Fun
           usage: "[text]",
           min_args: 1) \
   do |event, *args|
-    "```" + Cowsay.say(args.join(' '), 'cow') + "```"
+    inputtext = args.join(' ')
+    renderedtext = Cowsay.say(inputtext, 'cow')
+    chunkedtext = ""
+    until renderedtext.empty?
+      sliced = renderedtext.slice(0..1990)
+      lastindex = sliced.length - 1
+      lastline = sliced.lines.last
+      unless lastline.end_with? '\n' or renderedtext.length == sliced.length
+        lastindex -= lastline.length
+      end
+      chunkedtext << "```\n" + renderedtext.slice!(0..lastindex)+ "\n```" \
+              + " " * lastline.length + "\n"
+    end
+    chunkedtext
   end
 
   command(:me,
