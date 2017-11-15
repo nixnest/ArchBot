@@ -39,7 +39,7 @@ module Fun
           usage: "[text]",
           min_args: 1) \
   do |event, *args|
-    inputtext = args.join(' ')
+    inputtext = args.join(' ').gsub("```", '');
     renderedtext = Cowsay.say(inputtext, 'cow')
     chunkedtext = ""
     until renderedtext.empty?
