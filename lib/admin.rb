@@ -24,7 +24,7 @@ module Admin
     if $user_type == 'sudoer'
       time_out = fork do
         user = event.message.mentions[0].on($config['serverID'])
-        user.add_role($config['roles']['timeoutRole'])
+        user.add_role($config['timeoutRole'])
         sleep args[1].to_i
         user.remove_role($config['timeoutRole'])
         event.channel.send_message("#{user.name} timed out for #{args[1].to_i}")

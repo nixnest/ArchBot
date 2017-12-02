@@ -34,7 +34,7 @@ $bot.include! Admin
 $user_type = 'normal'
 
 $bot.command :sudo do |event, *args|
-  if event.author.roles.select { |role| role.id == $config['roles']['sudoersRole'] }.empty?
+  if event.author.roles.select { |role| role.id == $config['sudoersRole'] }.empty?
     event.channel.send_message("<@#{event.author.id}> is not in the sudoers file. This incident will be reported.")
   else
     run_command = args[0]

@@ -1,11 +1,11 @@
 ---
 token:
 serverID: ''
-roles:
-    sudoersRole: ''
-    timeoutRole: ''
-    nonfsfRole: ''
-    botdevRole: ''
+sudoersRole: ''
+timeoutRole: ''
+selfRoles:
+    nonfsf: ''
+    botdev: ''
 infoFile: ''
 figletFont: ''  # a font name from the fonts folder minus the .flf
 prefix: ''

@@ -49,6 +49,24 @@ module Utilities
           description: "Prints if you're a sudoer",
           usage: '!checksudo') do |event|
     event.channel.send_message('You are a ' \
-                               "#{event.user.roles.include?($config['roles']['sudoersRole']) ? 'sudoer' : 'regular user'}.")
+                               "#{event.user.roles.include?($config['sudoersRole']) ? 'sudoer' : 'regular user'}.")
+  end
+
+  command(:getrole,
+          description: 'Adds a self-assignable role',
+          usage: '<role to request>',
+          max_args: 1) do |event, *args|
+    role = args.join('')
+    if $config['selfRoles'].key?(role)
+      if event.author.role?(role)
+        event.channel.send_message('This user has already assigned that role to himself!')
+        return
+      end
+      event.author.add_role($config['selfRoles'][role])
+      event.channel.send_message("<@#{event.author.id}> was assigned the role #{role}!")
+    else
+      event.channel.send_message("Error: role #{role} does not exist.\nAvailable roles are: " +
+                                 $config['selfRoles'].keys.join(', '))
+    end
   end
 end
