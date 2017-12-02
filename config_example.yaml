@@ -1,8 +1,12 @@
 ---
 token:
 serverID: ''
-sudoersRole: ''
-timeoutRole: ''
-figletFont: '' #a font name from the fonts folder minus the .flf
+roles:
+    sudoersRole: ''
+    timeoutRole: ''
+    nonfsfRole: ''
+    botdevRole: ''
+infoFile: ''
+figletFont: ''  # a font name from the fonts folder minus the .flf
 prefix: ''
-lusersList: '' #a sequence of stringos
+lusersList: ''  # a sequence of strings
