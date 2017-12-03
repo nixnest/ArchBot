@@ -53,6 +53,7 @@ module Utilities
   command(:getrole,
           description: 'Adds a self-assignable role',
           usage: '<role to request>',
+	  min_args: 1,
           max_args: 1) do |event, *args|
     role = args.join('')
     if $config['selfRoles'].key?(role)
@@ -62,7 +63,7 @@ module Utilities
       event.author.add_role($config['selfRoles'][role])
       "<@#{event.author.id}> was assigned the role `#{role}`!"
     else
-      "Error: role `#{role}` does not exist.\nAvailable roles are: `#{$config['selfRoles'].keys.join(', ')`}"
+      "Error: role `#{role}` does not exist.\nAvailable roles are: `#{$config['selfRoles'].keys.join(', ')}`"
     end
   end
 end
