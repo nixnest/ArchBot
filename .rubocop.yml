@@ -1,0 +1,13 @@
+inherit_from:
+  - https://raw.githubusercontent.com/meew0/discordrb/master/.rubocop.yml
+
+Metrics/LineLength:
+  Max: 119
+
+Style/GlobalVars:
+  AllowedVariables:
+    - $config
+    - $pasta
+    - $figlet
+    - $user_type
+    - $bot
