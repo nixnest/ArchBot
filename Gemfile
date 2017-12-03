@@ -1,8 +1,8 @@
-source "https://rubygems.org" do
-    gem 'fullwidth'
-    gem 'discordrb'
-    gem 'figlet'
-    gem 'cowsay'
-    gem 'fortune_gem'
-    gem 'pry'
+source 'https://rubygems.org' do
+  gem 'cowsay'
+  gem 'discordrb'
+  gem 'figlet'
+  gem 'fortune_gem'
+  gem 'fullwidth'
+  gem 'pry'
 end
