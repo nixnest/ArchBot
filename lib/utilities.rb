@@ -60,9 +60,9 @@ module Utilities
         'This user has already assigned that role to himself!'
       end
       event.author.add_role($config['selfRoles'][role])
-      "<@#{event.author.id}> was assigned the role #{role}!"
+      "<@#{event.author.id}> was assigned the role `#{role}`!"
     else
-      "Error: role #{role} does not exist.\nAvailable roles are: $config['selfRoles'].keys.join(', ')"
+      "Error: role `#{role}` does not exist.\nAvailable roles are: `#{$config['selfRoles'].keys.join(', ')`}"
     end
   end
 end
