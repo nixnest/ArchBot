@@ -42,8 +42,8 @@ $bot.command :sudo do |event, *args|
     $user_type = 'sudoer'
     $bot.execute_command(run_command.to_sym, event, args)
     $user_type = 'normal'
+    break # Avoids garbage messages
   end
-  break # Avoids garbage messages
 end
 
 $pasta.keys.each do |pasta| # Slightly improved
@@ -63,7 +63,7 @@ $pasta.keys.each do |pasta| # Slightly improved
           end
         end
       end
-      event.channel.send_message(message)
+      message
     end
   end
 end

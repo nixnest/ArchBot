@@ -12,7 +12,7 @@ module Admin
       to_delete = event.channel.history(args.empty? ? 100 : args[0].to_i + 1)
       event.channel.delete_messages(to_delete)
     else
-      event.channel.send_message('Permission denied.')
+      'Permission denied.'
     end
   end
 
@@ -32,7 +32,7 @@ module Admin
       Process.detach(time_out)
       return
     else
-      event.channel.send_message('Permission denied.')
+      'Permission denied.'
     end
   end
 end

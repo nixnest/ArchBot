@@ -33,23 +33,21 @@ module Utilities
   command(:echo,
           description: 'Echoes text.',
           usage: '[text to echo]',
-          min_args: 1) do |event, *args|
-    event.channel.send_message(args.join(' '))
+          min_args: 1) do |_event, *args|
+    args.join(' ')
   end
 
   command(:lusers,
           description: 'Prints the amount of lusers currently online.',
           usage: '!lusers') do |event|
-    event.channel.send_message('Amount of lusers currently ' \
-                               "#{$config['lusersList'].sample}:" \
-                               "#{event.server.online_users(include_idle: true).length}")
+    "Amount of lusers currently #{$config['lusersList'].sample}:" \
+                               "#{event.server.online_users(include_idle: true).length}"
   end
 
   command(:checksudo,
           description: "Prints if you're a sudoer",
           usage: '!checksudo') do |event|
-    event.channel.send_message('You are a ' \
-                               "#{event.user.roles.include?($config['sudoersRole']) ? 'sudoer' : 'regular user'}.")
+    "You are a #{event.user.roles.include?($config['sudoersRole']) ? 'sudoer' : 'regular user'}."
   end
 
   command(:getrole,
@@ -59,14 +57,12 @@ module Utilities
     role = args.join('')
     if $config['selfRoles'].key?(role)
       if event.author.role?(role)
-        event.channel.send_message('This user has already assigned that role to himself!')
-        return
+        'This user has already assigned that role to himself!'
       end
       event.author.add_role($config['selfRoles'][role])
-      event.channel.send_message("<@#{event.author.id}> was assigned the role #{role}!")
+      "<@#{event.author.id}> was assigned the role #{role}!"
     else
-      event.channel.send_message("Error: role #{role} does not exist.\nAvailable roles are: " +
-                                 $config['selfRoles'].keys.join(', '))
+      "Error: role #{role} does not exist.\nAvailable roles are: $config['selfRoles'].keys.join(', ')"
     end
   end
 end

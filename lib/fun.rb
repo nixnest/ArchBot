@@ -5,8 +5,8 @@ module Fun
   command(:aesthic,
           description: 'Makes a message A E S T H E T I C',
           usage: '[text to convert]',
-          min_args: 1) do |event, *args|
-    event.channel.send_message(args.join(' ').to_fullwidth)
+          min_args: 1) do |_event, *args|
+    args.join(' ').to_fullwidth
   end
 
   command(:step,
@@ -14,26 +14,26 @@ module Fun
           usage: '[text]',
           min_args: 1) do |event, *args|
     args.to_a.delete_at(0) if args.include?('on')
-    event.channel.send_message("<@#{event.author.id}> steps on #{args.join(' ')}")
+    "<@#{event.author.id}> steps on #{args.join(' ')}"
   end
 
   command(:slap,
           description: 'Hit someone or something',
           usage: '[text]') do |event, *args|
-    event.channel.send_message("<@#{event.author.id}> slaps #{args.join(' ')} around a bit with a large trout")
+    "<@#{event.author.id}> slaps #{args.join(' ')} around a bit with a large trout"
   end
 
   command(:figlet,
           description: 'Turns a message into big ASCII art letters',
           usage: '[text]',
-          min_args: 1) do |event, *args|
-    event.channel.send_message('```' + $figlet[args.join('')] + '```')
+          min_args: 1) do |_event, *args|
+    '```' + $figlet[args.join('')] + '```'
   end
 
   command(:cowsay,
           description: 'Wraps a message with an ASCII art cow',
           usage: '[text]',
-          min_args: 1) do |event, *args|
+          min_args: 1) do |_event, *args|
     input_text = args.join(' ').gsub('```', '')
     rendered_text = Cowsay.say(input_text, 'cow')
     chunked_text = ''
@@ -47,7 +47,7 @@ module Fun
       chunked_text << "```\n" + rendered_text.slice!(0..last_index) + "\n```" \
               + ' ' * last_line.length + "\n"
     end
-    event.channel.send_message(chunked_text)
+    chunked_text
   end
 
   command(:me,
@@ -55,11 +55,11 @@ module Fun
           usage: '[text]',
           min_args: 1) do |event, *args|
     event.channel.delete_message(event.channel.history(1)[0])
-    event.channel.send_message("<@#{event.user.id}> *#{args.join(' ')}*")
+    "<@#{event.user.id}> *#{args.join(' ')}*"
   end
 
   command(:fortune,
-          description: 'Outputs a random fortune / divination / bad joke') do |event|
-    event.channel.send_message('```' + FortuneGem.give_fortune + '```')
+          description: 'Outputs a random fortune / divination / bad joke') do |_event|
+    '```' + FortuneGem.give_fortune + '```'
   end
 end
