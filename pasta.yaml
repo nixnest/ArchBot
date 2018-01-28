@@ -62,7 +62,7 @@ stfu: |
 
       Fix your f*cking "compliance tool", because it is obviously broken.
       And fix your approach to kernel programming.
-gentoo: http://i.imgur.com/RLF8XyU.gif
+gentoo: https://files.charlesmilette.net/gentoo.gif
 systemd: |-
       First off, systemd is not an init system, it has an init system as part of the systemd suite. systemd is a project to build a standardised lowlevel userland for Linux. The project is pretty comprehensive and it delivers a lot of functionality under one umbrella. It does away with a lot of older, often undermaintained software packages, which were traditionally used to assemble a low level userland.
 
